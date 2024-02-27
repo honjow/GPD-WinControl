@@ -1,10 +1,11 @@
 import { PanelSection, PanelSectionRow } from "decky-frontend-lib";
 
 import { VFC } from "react";
-import { stickOption, useStickOptions } from "../hooks/useStick";
+import {useStickOptions } from "../hooks/useStick";
 import SlowSliderField from "./SlowSliderField";
+import { stickOptionId } from "../backend/const";
 
-const StickSliderComponent: VFC<{ id: stickOption["id"]; label: string }> = ({
+const StickSliderComponent: VFC<{ id: stickOptionId; label: string }> = ({
   id,
   label,
 }) => {
@@ -35,7 +36,7 @@ const StickSliderComponent: VFC<{ id: stickOption["id"]; label: string }> = ({
 };
 
 const StickComponent: VFC = () => {
-  const options: { id: stickOption["id"]; label: string }[] = [
+  const options: { id: stickOptionId; label: string }[] = [
     { id: "ldead", label: "左摇杆死区" },
     { id: "rdead", label: "右摇杆死区" },
     { id: "lcent", label: "左摇杆边界" },

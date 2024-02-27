@@ -17,7 +17,7 @@ class Plugin:
         )
 
     async def get_rumble(self):
-        logging.info("Getting rumble")
+        logging.debug("Getting rumble")
         try:
             return int(rumble.get_rumble())
         except Exception as e:
@@ -25,21 +25,29 @@ class Plugin:
             return 0
     
     async def set_rumble(self, mode: int):
-        logging.info(f"Setting rumble to {mode}")
+        logging.debug(f"Setting rumble to {mode}")
         return rumble.set_rumble(mode)
     
-    async def get_setting_with_num(self, option):
+    async def get_config_num(self, option):
         try:
-            return int(gpd_setting.get_setting_with_num(option))
+            return int(gpd_setting.get_setting(option))
         except Exception as e:
             logging.error(f"Error getting {option}: {e}")
             return -1
-    async def set_setting(self, option, value):
-        logging.info(f"Setting {option} to {value}")
+        
+    async def get_config_str(self, option):
+        try:
+            return str(gpd_setting.get_setting(option))
+        except Exception as e:
+            logging.error(f"Error getting {option}: {e}")
+            return "NONE"
+
+    async def set_config(self, option, value):
+        logging.debug(f"Setting {option} to {value}")
         return gpd_setting.set_setting(option, value)
     
-    async def log(self, message: str):
-        logging.info(message)
+    async def log_debug(self, message: str):
+        logging.debug(message)
 
     # Function called first during the unload process, utilize this to handle your plugin being removed
     async def _unload(self):

@@ -8,6 +8,32 @@ import { keyCode } from "../backend/utils";
 import { useEffect, useState, VFC } from "react";
 import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 import { Settings } from "../hooks/useSettings";
+import {useMappings } from "../hooks/useMappings";
+import { ButtonId } from "../backend/const";
+
+const MappingDropdownItem: VFC<{ id: ButtonId; label: string }> = ({
+  id,
+  label,
+}) => {
+  const { value, updateMappingOptions } = useMappings(id);
+  return (
+    <PanelSectionRow>
+      <DropdownItem
+        label={label}
+        selectedOption={value}
+        rgOptions={keyCode.map((item) => {
+          return {
+            label: item.label,
+            data: item.label,
+          };
+        })}
+        onChange={(val) => {
+          updateMappingOptions(id, val.label as string);
+        }}
+      ></DropdownItem>
+    </PanelSectionRow>
+  );
+};
 
 const MouseMappingComponent: VFC = () => {
   const [showMouseMapping, setShowMouseMapping] = useState(
@@ -16,40 +42,33 @@ const MouseMappingComponent: VFC = () => {
   useEffect(() => {
     Settings.showMouseMapping = showMouseMapping;
   }, [showMouseMapping]);
-  const mappingsOptions = [
-    "Dpad-Up",
-    "Dpad-Down",
-    "Dpad-Left",
-    "Dpad-Right",
 
-    "L1",
-    "R1",
-    "L2",
-    "R2",
-    "L3",
-    "R3",
-    "A",
-    "B",
-    "X",
-    "Y",
-
-    "Select",
-    "Start",
-    "Menu",
-
-    "Left Stick Up",
-    "Left Stick Down",
-    "Left Stick Left",
-    "Left Stick Right",
-
-    "Right Stick Up",
-    "Right Stick Down",
-    "Right Stick Left",
-    "Right Stick Right",
+  const mappingsOptions: { id: ButtonId; label: string }[] = [
+    { id: "du", label: "Dpad-Up" },
+    { id: "dd", label: "Dpad-Down" },
+    { id: "dl", label: "Dpad-Left" },
+    { id: "dr", label: "Dpad-Right" },
+    { id: "l1", label: "L1" },
+    { id: "r1", label: "R1" },
+    { id: "l2", label: "L2" },
+    { id: "r2", label: "R2" },
+    { id: "l3", label: "L3" },
+    { id: "r3", label: "R3" },
+    { id: "a", label: "A" },
+    { id: "b", label: "B" },
+    { id: "x", label: "X" },
+    { id: "y", label: "Y" },
+    { id: "select", label: "Select" },
+    { id: "start", label: "Start" },
+    { id: "menu", label: "Menu" },
+    { id: "lu", label: "Left Stick Up" },
+    { id: "ld", label: "Left Stick Down" },
+    { id: "ll", label: "Left Stick Left" },
+    { id: "lr", label: "Left Stick Right" },
   ];
 
   return (
-    <PanelSection title="鼠标模式">
+    <PanelSection title="键鼠模式映射">
       <PanelSectionRow>
         <ButtonItem
           layout="below"
@@ -66,20 +85,9 @@ const MouseMappingComponent: VFC = () => {
       </PanelSectionRow>
 
       {showMouseMapping &&
-        mappingsOptions.map((item) => {
+        mappingsOptions.map((opt, idx) => {
           return (
-            <PanelSectionRow>
-              <DropdownItem
-                label={item}
-                rgOptions={keyCode.map((item) => {
-                  return {
-                    label: item.label,
-                    data: item.value,
-                  };
-                })}
-                selectedOption={undefined}
-              ></DropdownItem>
-            </PanelSectionRow>
+            <MappingDropdownItem key={idx} id={opt.id} label={opt.label} />
           );
         })}
     </PanelSection>

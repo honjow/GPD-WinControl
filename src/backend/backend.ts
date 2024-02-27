@@ -1,4 +1,5 @@
 import { ServerAPI } from "decky-frontend-lib";
+import { ButtonId } from "./const";
 
 export class Backend {
   private static serverAPI: ServerAPI;
@@ -17,24 +18,34 @@ export class Backend {
     await this.serverAPI!.callPluginMethod("set_rumble", { mode: mode });
   }
 
-  public static async log(message: string) {
+  public static async log_debug(message: string) {
     this.serverAPI!.callPluginMethod("log", { message: message });
   }
 
-  public static async getStickOptions(id: string): Promise<number> {
+  public static async getStickConfig(id: string): Promise<number> {
     const value = (
-      await this.serverAPI!.callPluginMethod("get_setting_with_num", {
+      await this.serverAPI!.callPluginMethod("get_config_num", {
         option: id,
       })
     ).result;
-    Backend.log(`getStickOptions: ${id} = ${value}`);
+    Backend.log_debug(`getStickConfig: ${id} = ${value}`);
     return value as number;
   }
 
-  static setStickOptions(id: string, value: number | string) {
-    this.serverAPI!.callPluginMethod("set_setting", {
-      "option": id,
-      "value": value,
+  public static setConfig(id: string, value: number | string) {
+    this.serverAPI!.callPluginMethod("set_config", {
+      option: id,
+      value: value,
     });
+  }
+
+  public static async getMappingConfig(id: ButtonId) {
+    const value = (
+      await this.serverAPI!.callPluginMethod("get_config_str", {
+        option: id,
+      })
+    ).result;
+    Backend.log_debug(`getMappingConfig: ${id} = ${value}`);
+    return value as string;
   }
 }
