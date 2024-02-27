@@ -2,21 +2,14 @@ import {
   NotchLabel,
   PanelSection,
   PanelSectionRow,
-  SliderField,
 } from "decky-frontend-lib";
 import { VFC } from "react";
 import { RumbleMode } from "./enum";
 import { useRumble } from "../hooks/useRumble";
+import SlowSliderField from "./SlowSliderField";
 
 const RumbleComponent: VFC = () => {
   const { mode, updateRumble } = useRumble();
-  // const [mode, setMode] = useState<RumbleMode>(RumbleMode.HIGH);
-
-  // useEffect(() => {
-  //   Backend.getRumble().then((currentMode) => {
-  //     setMode(currentMode);
-  //   });
-  // }, [mode]);
 
   const options = [
     { mode: RumbleMode.OFF, label: "关闭" },
@@ -24,14 +17,9 @@ const RumbleComponent: VFC = () => {
     { mode: RumbleMode.HIGH, label: "强" },
   ];
 
-  const handleSliderChange = (value: number) => {
-    // setMode(value);
-    updateRumble(value);
-  };
-
-  const MODES: NotchLabel[] = options.map((opt, idx) => {
+  const MODES: NotchLabel[] = options.map((opt, _) => {
     return {
-      notchIndex: idx,
+      notchIndex: opt.mode,
       label: opt.label,
       value: opt.mode,
     };
@@ -40,7 +28,7 @@ const RumbleComponent: VFC = () => {
   return (
     <PanelSection title="震动强度">
       <PanelSectionRow>
-        <SliderField
+        <SlowSliderField
           value={mode}
           min={0}
           max={MODES.length - 1}
@@ -49,8 +37,7 @@ const RumbleComponent: VFC = () => {
           notchLabels={MODES}
           notchTicksVisible={true}
           showValue={false}
-          bottomSeparator={"none"}
-          onChange={handleSliderChange}
+          onChange={updateRumble}
         />
       </PanelSectionRow>
     </PanelSection>

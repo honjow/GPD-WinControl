@@ -5,6 +5,7 @@ import os
 # or add the `decky-loader/plugin` path to `python.analysis.extraPaths` in `.vscode/settings.json`
 import decky_plugin
 import rumble
+import gpd_setting
 from config import logging
 from settings import SettingsManager
 
@@ -26,6 +27,16 @@ class Plugin:
     async def set_rumble(self, mode: int):
         logging.info(f"Setting rumble to {mode}")
         return rumble.set_rumble(mode)
+    
+    async def get_setting_with_num(self, option):
+        try:
+            return int(gpd_setting.get_setting_with_num(option))
+        except Exception as e:
+            logging.error(f"Error getting {option}: {e}")
+            return -1
+    async def set_setting(self, option, value):
+        logging.info(f"Setting {option} to {value}")
+        return gpd_setting.set_setting(option, value)
     
     async def log(self, message: str):
         logging.info(message)

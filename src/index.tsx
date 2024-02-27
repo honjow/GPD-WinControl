@@ -18,6 +18,7 @@ import { FaShip } from "react-icons/fa";
 import MouseMappingComponent from "./components/mouse";
 import RumbleComponent from "./components/rumble";
 import { PluginManager } from "./backend/pluginMain";
+import StickComponent from "./components/stick";
 
 // interface AddMethodArgs {
 //   left: number;
@@ -44,6 +45,7 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
     <div>
       <MouseMappingComponent />
       <RumbleComponent />
+      <StickComponent />
       {/* <PanelSection title="Panel Section">
         <PanelSectionRow>
           <ButtonItem
