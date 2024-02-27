@@ -1,17 +1,11 @@
-import {
-  definePlugin,
-  ServerAPI,
-  staticClasses,
-} from "decky-frontend-lib";
+import { definePlugin, ServerAPI, staticClasses } from "decky-frontend-lib";
 import { VFC } from "react";
-import { FaShip } from "react-icons/fa";
+import { FaHatCowboy } from "react-icons/fa";
 import { MouseMappingComponent, RumbleComponent } from "./components";
 import StickComponent from "./components/stick";
 import { PluginManager } from "./backend";
 
-
 // import logo from "../assets/logo.png";
-
 
 const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
   return (
@@ -29,7 +23,7 @@ export default definePlugin((serverApi: ServerAPI) => {
   return {
     title: <div className={staticClasses.Title}>GPD-WinControl</div>,
     content: <Content serverAPI={serverApi} />,
-    icon: <FaShip />,
+    icon: <FaHatCowboy />,
     onDismount() {
       PluginManager.unregister();
     },

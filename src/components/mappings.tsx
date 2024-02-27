@@ -8,16 +8,41 @@ import { useEffect, useState, VFC } from "react";
 import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 import { ButtonId, keyCode } from "../backend";
 import { Settings, useMappings } from "../hooks";
+import { IconMap } from "./icons";
 
 export const MappingDropdownItem: VFC<{ id: ButtonId; label: string }> = ({
   id,
   label,
 }) => {
   const { value, updateMappingOptions } = useMappings(id);
+  // const Label = (id: ButtonId) => {
+  //   return (
+  //     <span>
+  //       <img src={IconMap[id]} />
+  //       label
+  //     </span>
+  //   );
+  // };
   return (
     <PanelSectionRow>
       <DropdownItem
-        label={label}
+        label={
+          <span
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              width: "100%",
+              boxSizing: "border-box",
+              margin: "0",
+              padding: "0",
+              // justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <img src={IconMap[id]} style={{ marginRight: "8px" }} />
+            {label}
+          </span>
+        }
         selectedOption={value}
         rgOptions={keyCode.map((item) => {
           return {
