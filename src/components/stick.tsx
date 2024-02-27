@@ -35,7 +35,7 @@ export const StickSliderComponent: VFC<{
   );
 };
 
-const StickComponent: VFC = () => {
+export const StickComponent: VFC = () => {
   const options: { id: stickOptionId; label: string }[] = [
     { id: "ldead", label: "左摇杆死区" },
     { id: "rdead", label: "右摇杆死区" },
@@ -51,5 +51,3 @@ const StickComponent: VFC = () => {
     </PanelSection>
   );
 };
-
-export default StickComponent;
