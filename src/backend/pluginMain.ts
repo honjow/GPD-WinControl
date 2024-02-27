@@ -1,6 +1,6 @@
 import { ServerAPI } from "decky-frontend-lib";
-import { Backend } from "./backend";
-import { Settings } from "../hooks/useSettings";
+import { Backend } from ".";
+import { Settings } from "../hooks";
 
 export class PluginManager {
   public static register = async (serverAPI: ServerAPI) => {

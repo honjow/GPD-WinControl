@@ -1,7 +1,6 @@
-import { RumbleMode } from "../components/enum";
 import { useEffect, useState } from "react";
-import { Backend } from "../backend/backend";
-import { Settings } from "./useSettings";
+import { Backend, RumbleMode } from "../backend";
+import { Settings } from ".";
 
 export const useRumble = () => {
   const [mode, setMode] = useState<RumbleMode>(Settings.rumbleMode);

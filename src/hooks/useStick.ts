@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Backend } from "../backend/backend";
-import { Settings } from "./useSettings";
-import { stickOptionId } from "../backend/const";
+import { Backend, stickOptionId } from "../backend";
+import { Settings } from ".";
 
 export const useStickOptions = (id: stickOptionId) => {
   const [value, setValue] = useState(Settings.getStickOption(id));

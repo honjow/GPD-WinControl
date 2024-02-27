@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Backend } from "../backend/backend";
-import { Settings } from "./useSettings";
-import { ButtonId } from "../backend/const";
+import { Backend, ButtonId } from "../backend";
+import { Settings } from ".";
 
 export const useMappings = (id: ButtonId) => {
   const [value, setValue] = useState(Settings.getMappingOption(id));

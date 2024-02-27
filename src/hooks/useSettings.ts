@@ -1,7 +1,6 @@
-import { Backend } from "../backend/backend";
-import { ButtonId, buttonIds, stickOptionId } from "../backend/const";
+import { Backend, ButtonId, ButtonIds, stickOptionId } from "../backend";
+
 export class Settings {
-  
   private static _instance: Settings = new Settings();
 
   private _showMouseMapping: boolean = false;
@@ -14,8 +13,7 @@ export class Settings {
     { id: "rcent", value: 0 },
   ];
 
-  private _mapingsOptions: { id: ButtonId; label: string }[] = [
-  ];
+  private _mapingsOptions: { id: ButtonId; label: string }[] = [];
 
   public static async init() {
     const rumbleMode = await Backend.getRumble();
@@ -24,13 +22,12 @@ export class Settings {
       const value = await Backend.getStickConfig(opt.id);
       opt.value = value;
     });
-    
-    buttonIds.forEach(async (id) => {
+
+    ButtonIds.forEach(async (id) => {
       const value = await Backend.getMappingConfig(id);
       this._instance._mapingsOptions.push({ id, label: value });
     });
   }
-
 
   public static get showMouseMapping(): boolean {
     return this._instance._showMouseMapping;
@@ -50,17 +47,23 @@ export class Settings {
     return this._instance._stickOptions;
   }
 
-  public static set stickOptions(value: { id: stickOptionId; value: number }[]) {
+  public static set stickOptions(
+    value: { id: stickOptionId; value: number }[]
+  ) {
     this._instance._stickOptions = value;
   }
 
   public static setStickOption(id: stickOptionId, value: number) {
-    const index = this._instance._stickOptions.findIndex((opt) => opt.id === id);
+    const index = this._instance._stickOptions.findIndex(
+      (opt) => opt.id === id
+    );
     this._instance._stickOptions[index].value = value;
   }
 
   public static getStickOption(id: stickOptionId): number {
-    return this._instance._stickOptions.find((opt) => opt.id === id)?.value || 0;
+    return (
+      this._instance._stickOptions.find((opt) => opt.id === id)?.value || 0
+    );
   }
 
   public static getMappingOptions(): { id: ButtonId; label: string }[] {
@@ -68,7 +71,9 @@ export class Settings {
   }
 
   public static setMappingOption(id: ButtonId, value: string) {
-    const index = this._instance._mapingsOptions.findIndex((opt) => opt.id === id);
+    const index = this._instance._mapingsOptions.findIndex(
+      (opt) => opt.id === id
+    );
     if (index === -1) {
       this._instance._mapingsOptions.push({ id, label: value });
       return;
@@ -77,7 +82,9 @@ export class Settings {
   }
 
   public static getMappingOption(id: ButtonId): string {
-    return this._instance._mapingsOptions.find((opt) => opt.id === id)?.label || "NONE";
+    return (
+      this._instance._mapingsOptions.find((opt) => opt.id === id)?.label ||
+      "NONE"
+    );
   }
-
 }

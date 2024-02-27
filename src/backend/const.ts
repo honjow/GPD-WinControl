@@ -1,4 +1,4 @@
-export const buttonIds: string[] = [
+export const ButtonIds: string[] = [
   "du", //"Dpad-Up",
   "dd", //"Dpad-Down",
   "dl", //"Dpad-Left",
@@ -25,18 +25,18 @@ export const buttonIds: string[] = [
   "lr", //"Left Stick Right",
 ];
 
-export type ButtonId = (typeof buttonIds)[number];
+export type ButtonId = (typeof ButtonIds)[number];
 
-export type mappingOption = {
+export type MappingOption = {
   id: ButtonId;
   label: string;
   value: number;
 };
 
-export type stickOption = {
+export type StickOption = {
   id: "ldead" | "rdead" | "lcent" | "rcent";
   label: string;
   value: number;
 };
 
-export type stickOptionId = stickOption["id"];
+export type stickOptionId = StickOption["id"];

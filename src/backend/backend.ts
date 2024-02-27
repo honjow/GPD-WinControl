@@ -1,5 +1,5 @@
 import { ServerAPI } from "decky-frontend-lib";
-import { ButtonId } from "./const";
+import { ButtonId } from ".";
 
 export class Backend {
   private static serverAPI: ServerAPI;

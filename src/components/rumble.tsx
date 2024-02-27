@@ -1,14 +1,10 @@
-import {
-  NotchLabel,
-  PanelSection,
-  PanelSectionRow,
-} from "decky-frontend-lib";
+import { NotchLabel, PanelSection, PanelSectionRow } from "decky-frontend-lib";
 import { VFC } from "react";
-import { RumbleMode } from "./enum";
-import { useRumble } from "../hooks/useRumble";
-import SlowSliderField from "./SlowSliderField";
+import { RumbleMode } from "../backend";
+import { useRumble } from "../hooks";
+import { SlowSliderField } from ".";
 
-const RumbleComponent: VFC = () => {
+export const RumbleComponent: VFC = () => {
   const { mode, updateRumble } = useRumble();
 
   const options = [
@@ -43,5 +39,3 @@ const RumbleComponent: VFC = () => {
     </PanelSection>
   );
 };
-
-export default RumbleComponent;

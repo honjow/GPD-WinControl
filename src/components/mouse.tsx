@@ -4,14 +4,12 @@ import {
   PanelSection,
   PanelSectionRow,
 } from "decky-frontend-lib";
-import { keyCode } from "../backend/utils";
 import { useEffect, useState, VFC } from "react";
 import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
-import { Settings } from "../hooks/useSettings";
-import {useMappings } from "../hooks/useMappings";
-import { ButtonId } from "../backend/const";
+import { ButtonId, keyCode } from "../backend";
+import { Settings, useMappings } from "../hooks";
 
-const MappingDropdownItem: VFC<{ id: ButtonId; label: string }> = ({
+export const MappingDropdownItem: VFC<{ id: ButtonId; label: string }> = ({
   id,
   label,
 }) => {
@@ -35,7 +33,7 @@ const MappingDropdownItem: VFC<{ id: ButtonId; label: string }> = ({
   );
 };
 
-const MouseMappingComponent: VFC = () => {
+export const MouseMappingComponent: VFC = () => {
   const [showMouseMapping, setShowMouseMapping] = useState(
     Settings.showMouseMapping
   );
@@ -93,5 +91,3 @@ const MouseMappingComponent: VFC = () => {
     </PanelSection>
   );
 };
-
-export default MouseMappingComponent;
