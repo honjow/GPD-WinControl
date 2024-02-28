@@ -4,6 +4,7 @@ import { VFC } from "react";
 import { stickOptionId } from "../backend";
 import { useStickOptions } from "../hooks";
 import { SlowSliderField } from ".";
+import { LocalizationManager, LocalizeStrEnum } from "../i18n";
 
 export const StickSliderComponent: VFC<{
   id: stickOptionId;
@@ -36,14 +37,14 @@ export const StickSliderComponent: VFC<{
 
 export const StickComponent: VFC = () => {
   const options: { id: stickOptionId; label: string }[] = [
-    { id: "ldead", label: "左摇杆死区" },
-    { id: "rdead", label: "右摇杆死区" },
-    { id: "lcent", label: "左摇杆边界" },
-    { id: "rcent", label: "右摇杆边界" },
+    { id: "ldead", label: LocalizationManager.getString(LocalizeStrEnum.LEFT_STICK_DEADZONE) },
+    { id: "rdead", label: LocalizationManager.getString(LocalizeStrEnum.RIGHT_STICK_DEADZONE) },
+    { id: "lcent", label: LocalizationManager.getString(LocalizeStrEnum.LEFT_STICK_CENTRING) },
+    { id: "rcent", label: LocalizationManager.getString(LocalizeStrEnum.RIGHT_STICK_CENTRING) },
   ];
 
   return (
-    <PanelSection title="摇杆死区">
+    <PanelSection title={LocalizationManager.getString(LocalizeStrEnum.STICK_SETTINGS)}>
       {options.map((opt, idx) => {
         return <StickSliderComponent key={idx} id={opt.id} label={opt.label} />;
       })}

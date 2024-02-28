@@ -4,6 +4,7 @@ import { FaHatCowboy } from "react-icons/fa";
 import { MouseMappingComponent, MoreComponent, RumbleComponent, StickComponent, RGBComponent } from "./components";
 import { PluginManager } from "./backend";
 import { useSupport } from "./hooks";
+import { LocalizationManager } from "./i18n";
 
 // import logo from "../assets/logo.png";
 
@@ -22,6 +23,7 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({ }) => {
 };
 
 export default definePlugin((serverApi: ServerAPI) => {
+  LocalizationManager.init(serverApi);
   PluginManager.register(serverApi);
 
   return {

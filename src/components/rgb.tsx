@@ -8,6 +8,7 @@ import { VFC } from "react";
 import { SlowSliderField } from "./SlowSliderField";
 import { useRgb } from "../hooks";
 import { LedMode } from "../backend";
+import { LocalizationManager, LocalizeStrEnum } from "../i18n";
 
 export const RGBComponent: VFC = () => {
   const {
@@ -44,10 +45,10 @@ export const RGBComponent: VFC = () => {
   }
 
   const options = [
-    { mode: LedMode.OFF, label: "关闭" },
-    { mode: LedMode.SOLID, label: "常亮" },
-    { mode: LedMode.BREATHE, label: "呼吸" },
-    { mode: LedMode.ROTATE, label: "轮转" },
+    { mode: LedMode.OFF, label: LocalizationManager.getString(LocalizeStrEnum.RGB_MODE_OFF) },
+    { mode: LedMode.SOLID, label: LocalizationManager.getString(LocalizeStrEnum.RGB_MODE_SOLID) },
+    { mode: LedMode.BREATHE, label: LocalizationManager.getString(LocalizeStrEnum.RGB_MODE_BREATHE) },
+    { mode: LedMode.ROTATE, label: LocalizationManager.getString(LocalizeStrEnum.RGB_MODE_ROTATE) },
   ];
 
   const ledModeLabels: NotchLabel[] = options.map((opt, _) => {
@@ -61,7 +62,7 @@ export const RGBComponent: VFC = () => {
   const showSlider = ledMode !== LedMode.OFF && ledMode !== LedMode.ROTATE;
 
   return (
-    <PanelSection title="RGB">
+    <PanelSection title={LocalizationManager.getString(LocalizeStrEnum.RGB_SETTINGS)}>
       <PanelSectionRow>
         <SlowSliderField
           value={ledMode}
@@ -79,7 +80,7 @@ export const RGBComponent: VFC = () => {
         <PanelSectionRow>
           <SlowSliderField
             showValue
-            label={"Hue"}
+            label={LocalizationManager.getString(LocalizeStrEnum.HUE)}
             value={hue}
             min={0}
             max={360}
@@ -94,7 +95,7 @@ export const RGBComponent: VFC = () => {
         <PanelSectionRow>
           <SlowSliderField
             showValue
-            label={"Saturation"}
+            label={LocalizationManager.getString(LocalizeStrEnum.SATURATION)}
             value={saturation}
             min={0}
             max={100}
@@ -109,7 +110,7 @@ export const RGBComponent: VFC = () => {
         <PanelSectionRow>
           <SlowSliderField
             showValue
-            label={"Brightness"}
+            label={LocalizationManager.getString(LocalizeStrEnum.BRIGHTNESS)}
             value={brightness}
             disabled={ledMode === LedMode.BREATHE}
             min={0}

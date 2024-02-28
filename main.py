@@ -13,6 +13,7 @@ from config import (
     IS_RUMBLE_SUPPORTED,
     IS_STICK_SUPPORTED,
 )
+import utils
 from settings import SettingsManager
 
 
@@ -105,6 +106,17 @@ class Plugin:
         except Exception as e:
             logging.error(f"Error setting RGB: {e}")
             return False
+        
+    async def get_language(self):
+        logging.info("Getting language")
+        # return "schinese"
+        try:
+            language = utils.get_language()
+            logging.info(f"Getting language: {language}")
+            return language
+        except Exception as e:
+            logging.error(e)
+            return "english"
 
     async def log_debug(self, message: str):
         logging.debug(message)

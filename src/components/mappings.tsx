@@ -9,20 +9,13 @@ import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 import { ButtonId, keyCode } from "../backend";
 import { Settings, useMappings } from "../hooks";
 import { IconMap } from "./icons";
+import { LocalizationManager, LocalizeStrEnum } from "../i18n";
 
 export const MappingDropdownItem: VFC<{ id: ButtonId; label: string }> = ({
   id,
   label,
 }) => {
   const { value, updateMappingOptions } = useMappings(id);
-  // const Label = (id: ButtonId) => {
-  //   return (
-  //     <span>
-  //       <img src={IconMap[id]} />
-  //       label
-  //     </span>
-  //   );
-  // };
   return (
     <PanelSectionRow>
       <DropdownItem
@@ -91,7 +84,7 @@ export const MouseMappingComponent: VFC = () => {
   ];
 
   return (
-    <PanelSection title="键鼠模式映射">
+    <PanelSection title={LocalizationManager.getString(LocalizeStrEnum.MOUSE_MAPPING)}>
       <PanelSectionRow>
         <ButtonItem
           layout="below"

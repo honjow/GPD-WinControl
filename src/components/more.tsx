@@ -2,15 +2,16 @@ import { ButtonItem, Field, PanelSection, PanelSectionRow } from "decky-frontend
 import { VFC } from "react";
 import { Backend } from "../backend";
 import { useUpdate } from "../hooks";
+import { LocalizationManager, LocalizeStrEnum } from "../i18n";
 
 
 export const MoreComponent: VFC = () => {
     const { currentVersion, latestVersion } = useUpdate();
 
-    let uptButtonText = `Reinstall Plugin`;
+    let uptButtonText = LocalizationManager.getString(LocalizeStrEnum.REINSTALL_PLUGIN);
 
     if (currentVersion !== latestVersion && Boolean(latestVersion)) {
-        uptButtonText = `Update to ${latestVersion}`;
+        uptButtonText = `${LocalizationManager.getString(LocalizeStrEnum.UPDATE_PLUGIN)} ${latestVersion}`;
     }
 
     return (
@@ -21,7 +22,7 @@ export const MoreComponent: VFC = () => {
                     onClick={() => {
                         Backend.resetMappings();
                     }}
-                >Reset Mappings</ButtonItem>
+                >{LocalizationManager.getString(LocalizeStrEnum.RESET_MAPPING)}</ButtonItem>
             </PanelSectionRow>
             <PanelSectionRow>
                 <ButtonItem
@@ -32,13 +33,13 @@ export const MoreComponent: VFC = () => {
                 >{uptButtonText}</ButtonItem>
             </PanelSectionRow>
             <PanelSectionRow>
-                <Field disabled label={"Installed Version"}>
+                <Field disabled label={LocalizationManager.getString(LocalizeStrEnum.INSTALLED_VERSION)}>
                     {currentVersion}
                 </Field>
             </PanelSectionRow>
             {Boolean(latestVersion) && (
                 <PanelSectionRow>
-                    <Field disabled label={"Latest Version"}>
+                    <Field disabled label={LocalizationManager.getString(LocalizeStrEnum.LATEST_VERSION)}>
                         {latestVersion}
                     </Field>
                 </PanelSectionRow>
