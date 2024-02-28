@@ -52,7 +52,7 @@ def update_latest():
             decky_plugin.logger.error(f"error during ota file extraction {e}")
 
         logging.info("restarting plugin_loader.service")
-        cmd = f'echo "systemctl restart plugin_loader.service" | sh'
+        cmd = "systemctl restart plugin_loader.service"
         result = subprocess.run(
             cmd,
             shell=True,

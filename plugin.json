@@ -1,7 +1,7 @@
 {
   "name": "GPD-WinControl",
   "author": "honjow",
-  "flags": ["_root"],
+  "flags": ["root"],
   "publish": {
     "tags": ["root"],
     "description": "GPD WinControl Decky Plugin.",
