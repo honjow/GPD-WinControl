@@ -1,3 +1,5 @@
+import { LedMode } from "./enum";
+
 export const ButtonIds: string[] = [
   "du", //"Dpad-Up",
   "dd", //"Dpad-Down",
@@ -40,3 +42,12 @@ export type StickOption = {
 };
 
 export type stickOptionId = StickOption["id"];
+
+export const GithubApiUrl = "https://api.github.com/repos/honjow/GPD-WinControl/releases/latest";
+
+export const LedModeMap: { [key: string]: LedMode } = {
+  "off": LedMode.OFF,
+  "solid": LedMode.SOLID,
+  "breathe": LedMode.BREATHE,
+  "rotate": LedMode.ROTATE,
+};

@@ -4,3 +4,4 @@ export * from "./rumble";
 export * from "./stick";
 export * from "./icons";
 export * from "./more";
+export * from "./rgb";

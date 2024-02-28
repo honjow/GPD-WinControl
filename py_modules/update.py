@@ -11,6 +11,7 @@ from config import logging
 import decky_plugin
 from utils import generate_random_string 
 
+api_url = "http://api.github.com/repos/honjow/GPD-WinControl/releases/latest"
 
 def recursive_chmod(path, perms):
     for dirpath, dirnames, filenames in os.walk(path):
@@ -27,6 +28,7 @@ def update_latest():
         plugin_dir = f"{decky_plugin.DECKY_USER_HOME}/homebrew/plugins/GPD-WinControl"
 
         try:
+            logging.info(f"removing old plugin from {plugin_dir}")
             # add write perms to directory
             recursive_chmod(plugin_dir, stat.S_IWUSR)
 
@@ -36,6 +38,7 @@ def update_latest():
             logging.error(f"ota error during removal of old plugin: {e}")
 
         try:
+            logging.info(f"extracting ota file to {plugin_dir}")
             # extract files to decky plugins dir
             shutil.unpack_archive(
                 downloaded_filepath,
@@ -48,6 +51,7 @@ def update_latest():
         except Exception as e:
             decky_plugin.logger.error(f"error during ota file extraction {e}")
 
+        logging.info("restarting plugin_loader.service")
         cmd = f'echo "systemctl restart plugin_loader.service" | sh'
         result = subprocess.run(
             cmd,
@@ -57,15 +61,14 @@ def update_latest():
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
         )
+        logging.info(result.stdout)
         return result
 
 
 def download_latest_build():
-    url = "http://api.github.com/repos/honjow/GPD-WinControl/releases/latest"
-
     gcontext = ssl.SSLContext()
 
-    response = urllib.request.urlopen(url, context=gcontext)
+    response = urllib.request.urlopen(api_url, context=gcontext)
     json_data = json.load(response)
 
     download_url = json_data.get("assets")[0].get("browser_download_url")
@@ -81,3 +84,15 @@ def download_latest_build():
         output_file.close()
 
     return file_path
+
+def get_latest_version():
+    gcontext = ssl.SSLContext()
+
+    response = urllib.request.urlopen(api_url, context=gcontext)
+    json_data = json.load(response)
+
+    tag =  json_data.get("tag_name")
+    # if tag is a v* tag, remove the v
+    if tag.startswith("v"):
+        tag = tag[1:]
+    return tag

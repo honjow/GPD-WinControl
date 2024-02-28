@@ -1,4 +1,11 @@
-import { Backend, ButtonId, ButtonIds, stickOptionId } from "../backend";
+import {
+  Backend,
+  ButtonId,
+  ButtonIds,
+  LedMode,
+  rgbToHsv,
+  stickOptionId,
+} from "../backend";
 
 export class Settings {
   private static _instance: Settings = new Settings();
@@ -15,17 +22,62 @@ export class Settings {
 
   private _mapingsOptions: { id: ButtonId; label: string }[] = [];
 
+  private _currentVersion: string = "";
+  private _latestVersion: string = "";
+
+  private _supportRumbleOption: boolean = false;
+  private _supportRgb: boolean = false;
+  private _supportStickOption: boolean = false;
+
+  private _hue: number = 0;
+  private _saturation: number = 100;
+  private _brightness: number = 100;
+
+  private _ledMode: LedMode = 0;
+
   public static async init() {
-    const rumbleMode = await Backend.getRumble();
-    this._instance._rumbleMode = rumbleMode;
-    this._instance._stickOptions.forEach(async (opt) => {
-      const value = await Backend.getStickConfig(opt.id);
-      opt.value = value;
+    Backend.getRumble().then((value) => {
+      this._instance._rumbleMode = value;
     });
 
-    ButtonIds.forEach(async (id) => {
-      const value = await Backend.getMappingConfig(id);
-      this._instance._mapingsOptions.push({ id, label: value });
+    this._instance._stickOptions.forEach(async (opt) => {
+      Backend.getStickConfig(opt.id).then((value) => {
+        opt.value = value;
+      });
+    });
+
+    ButtonIds.forEach((id) => {
+      Backend.getMappingConfig(id).then((value) => {
+        this._instance._mapingsOptions.push({ id, label: value });
+      });
+    });
+
+    Backend.getSupportRumbleOption().then((value) => {
+      this._instance._supportRumbleOption = value;
+    });
+    Backend.getSupportRGBOption().then((value) => {
+      this._instance._supportRgb = value;
+    });
+    Backend.getSupportStickOption().then((value) => {
+      this._instance._supportStickOption = value;
+    });
+
+    Backend.getVersion().then((value) => {
+      this._instance._currentVersion = value;
+    });
+
+    // Backend.getLatestVersion().then((value) => {
+    //   this._instance._latestVersion = value;
+    // });
+
+    Backend.getRgb().then(({ r, g, b }) => {
+      const [h, s, v] = rgbToHsv(r, g, b);
+      this._instance._hue = h;
+      this._instance._saturation = s;
+      this._instance._brightness = v;
+    });
+    Backend.getLedMode().then((mode) => {
+      this._instance._ledMode = mode;
     });
   }
 
@@ -86,5 +138,77 @@ export class Settings {
       this._instance._mapingsOptions.find((opt) => opt.id === id)?.label ||
       "NONE"
     );
+  }
+
+  public static get currentVersion(): string {
+    return this._instance._currentVersion;
+  }
+
+  public static set currentVersion(value: string) {
+    this._instance._currentVersion = value;
+  }
+
+  public static get latestVersion(): string {
+    return this._instance._latestVersion;
+  }
+
+  public static set latestVersion(value: string) {
+    this._instance._latestVersion = value;
+  }
+
+  public static get supportRumbleOption(): boolean {
+    return this._instance._supportRumbleOption;
+  }
+
+  public static set supportRumbleOption(value: boolean) {
+    this._instance._supportRumbleOption = value;
+  }
+
+  public static get supportRgb(): boolean {
+    return this._instance._supportRgb;
+  }
+
+  public static set supportRgb(value: boolean) {
+    this._instance._supportRgb = value;
+  }
+
+  public static get supportStickOption(): boolean {
+    return this._instance._supportStickOption;
+  }
+
+  public static set supportStickOption(value: boolean) {
+    this._instance._supportStickOption = value;
+  }
+
+  public static get hue(): number {
+    return this._instance._hue;
+  }
+
+  public static set hue(value: number) {
+    this._instance._hue = value;
+  }
+
+  public static get saturation(): number {
+    return this._instance._saturation;
+  }
+
+  public static set saturation(value: number) {
+    this._instance._saturation = value;
+  }
+
+  public static get brightness(): number {
+    return this._instance._brightness;
+  }
+
+  public static set brightness(value: number) {
+    this._instance._brightness = value;
+  }
+
+  public static get ledMode(): LedMode {
+    return this._instance._ledMode;
+  }
+
+  public static set ledMode(value: LedMode) {
+    this._instance._ledMode = value;
   }
 }

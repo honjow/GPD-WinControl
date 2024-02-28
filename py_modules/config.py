@@ -14,6 +14,40 @@ except Exception as e:
     logging.error(f"exception|{e}")
 
 
+try:
+    PRODUCT_NAME = open("/sys/devices/virtual/dmi/id/product_name", "r").read().strip()
+    logging.info(f"PRODUCT_NAME: {PRODUCT_NAME}")
+except Exception as e:
+    logging.error(f"exception|{e}")
+    PRODUCT_NAME = "UNKNOWN"
+
+# 支持震动调节的设备
+RUMBLE_OPTION_SUPPORT_LIST = [
+    "G1619-04"
+    "G1619-05"
+    "G1618-04",
+    "G1617-01",
+]
+
+# 支持RGB灯光调节的设备
+RGB_SUPPORT_LIST = [
+    "G1618-04",
+    # "G1617-01",
+]
+
+# 支持摇杆调节的设备
+STICK_OPTION_SUPPORT_LIST = [
+    "G1619-04"
+    "G1619-05"
+    "G1618-04",
+    "G1617-01",
+]
+
+IS_RUMBLE_SUPPORTED = PRODUCT_NAME in RUMBLE_OPTION_SUPPORT_LIST
+IS_RGB_SUPPORTED = PRODUCT_NAME in RGB_SUPPORT_LIST
+IS_STICK_SUPPORTED = PRODUCT_NAME in STICK_OPTION_SUPPORT_LIST
+
+
 DEFAULT_MAPPINGS = """
 lu=W
 ld=S

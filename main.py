@@ -7,7 +7,12 @@ import decky_plugin
 import rumble
 import update
 import gpd_setting
-from config import logging
+from config import (
+    logging,
+    IS_RGB_SUPPORTED,
+    IS_RUMBLE_SUPPORTED,
+    IS_STICK_SUPPORTED,
+)
 from settings import SettingsManager
 
 
@@ -24,18 +29,18 @@ class Plugin:
         except Exception as e:
             logging.error(f"Error getting rumble: {e}")
             return 0
-    
+
     async def set_rumble(self, mode: int):
         logging.debug(f"Setting rumble to {mode}")
         return rumble.set_rumble(mode)
-    
+
     async def get_config_num(self, option):
         try:
             return int(gpd_setting.get_setting(option))
         except Exception as e:
             logging.error(f"Error getting {option}: {e}")
             return -1
-        
+
     async def get_config_str(self, option):
         try:
             return str(gpd_setting.get_setting(option))
@@ -46,17 +51,66 @@ class Plugin:
     async def set_config(self, option, value):
         logging.debug(f"Setting {option} to {value}")
         return gpd_setting.set_setting(option, value)
-    
+
     async def reset_mappings(self):
         logging.debug("Resetting mappings")
         return gpd_setting.reset_mappings()
-    
+
     async def update_latest(self):
         logging.info("Updating latest")
         return update.update_latest()
-    
+
+    async def get_version(self):
+        return f"{decky_plugin.DECKY_PLUGIN_VERSION}"
+
+    async def get_latest_version(self):
+        try:
+            return update.get_latest_version()
+        except Exception as e:
+            logging.error(f"Error getting latest version: {e}")
+            return ""
+
+    async def get_support_rumble_option(self):
+        return IS_RUMBLE_SUPPORTED
+
+    async def get_support_rgb_option(self):
+        return IS_RGB_SUPPORTED
+
+    async def get_support_stick_option(self):
+        return IS_STICK_SUPPORTED
+
+    async def get_rgb(self):
+        try:
+            rebHex = gpd_setting.get_setting("colour")
+            logging.info(f"Getting RGB: {rebHex}")
+            # Convert  RR GG BB to decimal
+            r = int(rebHex[0:2], 16)
+            g = int(rebHex[2:4], 16)
+            b = int(rebHex[4:6], 16)
+            logging.info(f"RGB: {r}, {g}, {b}")
+            return [r, g, b]
+        except Exception as e:
+            logging.error(f"Error getting RGB: {e}")
+            return [0, 0, 0]
+
+    async def set_rgb(self, r: int, g: int, b: int):
+        try:
+            logging.info(f"Setting RGB to {r}, {g}, {b}")
+            if r is None or g is None or b is None:
+                return False
+            # Convert to hex
+            hexColour = "{:02x}{:02x}{:02x}".format(r, g, b)
+            logging.info(f"Setting RGB to {hexColour}")
+            return gpd_setting.set_setting("colour", hexColour)
+        except Exception as e:
+            logging.error(f"Error setting RGB: {e}")
+            return False
+
     async def log_debug(self, message: str):
         logging.debug(message)
+
+    async def log_info(self, message: str):
+        logging.info(message)
 
     # Function called first during the unload process, utilize this to handle your plugin being removed
     async def _unload(self):
