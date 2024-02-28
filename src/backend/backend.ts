@@ -48,4 +48,12 @@ export class Backend {
     Backend.log_debug(`getMappingConfig: ${id} = ${value}`);
     return value as string;
   }
+
+  public static async resetMappings() {
+    return await this.serverAPI!.callPluginMethod("reset_mappings", {});
+  }
+
+  public static async updateLatest() {
+    return await this.serverAPI!.callPluginMethod("update_latest", {});
+  }
 }

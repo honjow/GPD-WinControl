@@ -5,6 +5,7 @@ import os
 # or add the `decky-loader/plugin` path to `python.analysis.extraPaths` in `.vscode/settings.json`
 import decky_plugin
 import rumble
+import update
 import gpd_setting
 from config import logging
 from settings import SettingsManager
@@ -45,6 +46,14 @@ class Plugin:
     async def set_config(self, option, value):
         logging.debug(f"Setting {option} to {value}")
         return gpd_setting.set_setting(option, value)
+    
+    async def reset_mappings(self):
+        logging.debug("Resetting mappings")
+        return gpd_setting.reset_mappings()
+    
+    async def update_latest(self):
+        logging.debug("Updating latest")
+        return update.update_latest()
     
     async def log_debug(self, message: str):
         logging.debug(message)
