@@ -19,7 +19,7 @@ if [ -x "$(command -v jq)" ]; then
   use_jq=true
 fi
 
-RELEASE=$(curl -s 'https://api.github.com/repos/mengmeet/PowerControl/releases/latest')
+RELEASE=$(curl -s 'https://api.github.com/repos/honjow/GPD-WinControl/releases/latest')
 
 if [[ $use_jq == true ]]; then
   echo "Using jq"
@@ -37,7 +37,7 @@ if [[ "$MESSAGE" != "null" ]]; then
   exit 1
 fi
 
-if [ -z "$DOWNLOAD_URL" ]; then
+if [ -z "$RELEASE_URL" ]; then
   echo "Failed to get latest release" >&2
   exit 1
 fi
@@ -46,7 +46,7 @@ echo "Downloading GPD-WinControl $RELEASE_VERSION"
 curl -L "$RELEASE_URL" -o "$temp/GPD-WinControl.tar.gz"
 
 sudo tar -xzf "$temp/GPD-WinControl.tar.gz" -C $temp
-sudo rsync -av $temp/GPD-WinControl/ $plugin_dir --delete --progress
+sudo rsync -av $temp/GPD-WinControl/ $plugin_dir --delete
 
 rm $temp/GPD-WinControl.tar.gz
 sudo systemctl restart plugin_loader.service
