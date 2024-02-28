@@ -19,11 +19,10 @@ export const StickSliderComponent: VFC<{
         max={10}
         step={1}
         notchCount={21}
-        // notchLabels={[
-        //   { notchIndex: -10, label: "-10" },
-        //   { notchIndex: 0, label: "0" },
-        //   { notchIndex: 10, label: "10" },
-        // ]}
+        notchLabels={[
+          // { notchIndex: 0, label: "-10" },
+          // { notchIndex: 9, label: "10" },
+        ]}
         notchTicksVisible={false}
         showValue={true}
         bottomSeparator={"none"}

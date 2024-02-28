@@ -52,7 +52,7 @@ class Plugin:
         return gpd_setting.reset_mappings()
     
     async def update_latest(self):
-        logging.debug("Updating latest")
+        logging.info("Updating latest")
         return update.update_latest()
     
     async def log_debug(self, message: str):
