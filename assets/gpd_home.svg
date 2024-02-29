@@ -1,19 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
-<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="32" height="32"
-   viewBox="0 0 132.29166 132.29167" version="1.1" id="svg8" sodipodi:docname="home.svg"
-   inkscape:version="0.92.2 2405546, 2018-03-11">
-   <defs id="defs2" />
-   <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1" transform="translate(0,-164.70832)">
-      <text xml:space="preserve"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:6.61458302px;font-family:Xolonium;-inkscape-font-specification:Xolonium;text-align:center;letter-spacing:0px;word-spacing:0px;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-         x="52.919361" y="223.76813" id="text1408">
-         <tspan sodipodi:role="line" id="tspan1406" x="52.919361" y="229.8246" style="stroke-width:0.26458332px" />
-      </text>
+<svg
+   xmlns="http://www.w3.org/2000/svg"
+   width="32" height="32"
+   viewBox="0 0 132.29166 132.29167" version="1.1"
+   >
+   <g transform="translate(0,-164.70832)">
       <path fill="white"
          d="M 47.894531 104.18164 C 31.603551 104.18164 18.488281 117.29691 18.488281 133.58789 L 18.488281 276.93164 C 18.488281 293.22262 31.603551 306.33789 47.894531 306.33789 L 452.10547 306.33789 C 468.39645 306.33789 481.51172 293.22262 481.51172 276.93164 L 481.51172 133.58789 C 481.51172 117.29691 468.39645 104.18164 452.10547 104.18164 L 47.894531 104.18164 z M 250 141.11523 L 324.75195 207.20312 L 298.48828 207.20312 L 298.48828 269.4043 L 201.51367 269.4043 L 201.51367 207.20312 L 175.24805 207.20312 L 250 141.11523 z M 243.93945 219.07812 L 243.93945 243.27148 L 285.35547 243.27148 L 285.35547 219.07812 L 243.93945 219.07812 z "
          transform="matrix(0.26458333,0,0,0.26458333,0,164.70832)" id="rect5066" />

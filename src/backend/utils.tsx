@@ -1,5 +1,3 @@
-import { Backend } from "./backend";
-
 export const keyCode = [
   { label: "NONE", value: 0x00 },
 

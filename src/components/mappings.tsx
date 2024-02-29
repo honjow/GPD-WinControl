@@ -17,6 +17,8 @@ export const MappingDropdownItem: VFC<{ id: ButtonId; label: string }> = ({
 }) => {
   const { value, updateMappingOptions } = useMappings(id);
 
+  const SvgIcon = IconMap[id];
+
   return (
     <PanelSectionRow>
       <DropdownItem
@@ -33,7 +35,15 @@ export const MappingDropdownItem: VFC<{ id: ButtonId; label: string }> = ({
               alignItems: "center",
             }}
           >
-            <img src={IconMap[id]} style={{ marginRight: "8px" }} />
+            {SvgIcon && <span
+              style={{
+                width: '32px',
+                height: '32px',
+                marginRight: '8px',
+              }}
+            >
+              <SvgIcon />
+            </span>}
             {label}
           </span>
         }

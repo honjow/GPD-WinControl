@@ -7,11 +7,14 @@ if [ "$EUID" -eq 0 ]; then
   exit
 fi
 
-echo "installing GPD-WinControl"
+github_api_url="https://api.github.com/repos/honjow/GPD-WinControl/releases/latest"
+package="GPD-WinControl"
+
+echo "installing $package"
 
 temp=$(mktemp -d)
 
-plugin_dir="$HOME/homebrew/plugins/GPD-WinControl"
+plugin_dir="${HOME}/homebrew/plugins/${package}"
 mkdir -p $plugin_dir
 
 use_jq=false
@@ -19,7 +22,7 @@ if [ -x "$(command -v jq)" ]; then
   use_jq=true
 fi
 
-RELEASE=$(curl -s 'https://api.github.com/repos/honjow/GPD-WinControl/releases/latest')
+RELEASE=$(curl -s "$github_api_url")
 
 if [[ $use_jq == true ]]; then
   echo "Using jq"
@@ -42,11 +45,13 @@ if [ -z "$RELEASE_URL" ]; then
   exit 1
 fi
 
-echo "Downloading GPD-WinControl $RELEASE_VERSION"
-curl -L "$RELEASE_URL" -o "$temp/GPD-WinControl.tar.gz"
+temp_file="${temp}/${package}.tar.gz"
 
-sudo tar -xzf "$temp/GPD-WinControl.tar.gz" -C $temp
-sudo rsync -av $temp/GPD-WinControl/ $plugin_dir --delete
+echo "Downloading $package $RELEASE_VERSION"
+curl -L "$RELEASE_URL" -o "$temp_file"
 
-rm $temp/GPD-WinControl.tar.gz
+sudo tar -xzf "$temp_file" -C $temp
+sudo rsync -av "${temp}/${package}/" $plugin_dir --delete
+
+rm "$temp_file"
 sudo systemctl restart plugin_loader.service
