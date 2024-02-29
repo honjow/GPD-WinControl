@@ -1,8 +1,12 @@
+[English](./README_en.md) | 简体中文
+
 # GPD-WinControl
 
-用于[decky-loader](https://github.com/SteamDeckHomebrew/decky-loader)的插件
+[![](https://img.shields.io/github/downloads/honjow/GPD-WinControl/total.svg)](https://github.com/honjow/GPD-WinControl/releases) [![](https://img.shields.io/github/downloads/honjow/GPD-WinControl/latest/total)](https://github.com/honjow/GPD-WinControl/releases/latest) [![](https://img.shields.io/github/v/release/honjow/GPD-WinControl)](https://github.com/honjow/GPD-WinControl/releases/latest)
 
-decky 版本的 WinControl
+用于 [decky-loader](https://github.com/SteamDeckHomebrew/decky-loader) 的插件
+
+Decky 版本的 WinControl, GPD Win Mini 和 Win 4 适用， Max 2 未测试
 
 ![image](./screenshot/screenshot_1.jpg)
 ![image](./screenshot/screenshot_2.jpg)
