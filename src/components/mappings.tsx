@@ -16,6 +16,7 @@ export const MappingDropdownItem: VFC<{ id: ButtonId; label: string }> = ({
   label,
 }) => {
   const { value, updateMappingOptions } = useMappings(id);
+
   return (
     <PanelSectionRow>
       <DropdownItem
@@ -81,6 +82,15 @@ export const MouseMappingComponent: VFC = () => {
     { id: "ld", label: "Left Stick Down" },
     { id: "ll", label: "Left Stick Left" },
     { id: "lr", label: "Left Stick Right" },
+
+    { id: "l41", label: "L41" },
+    { id: "l42", label: "L42" },
+    { id: "l43", label: "L43" },
+    { id: "l44", label: "L44" },
+    { id: "r41", label: "R41" },
+    { id: "r42", label: "R42" },
+    { id: "r43", label: "R43" },
+    { id: "r44", label: "R44" },
   ];
 
   return (

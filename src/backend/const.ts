@@ -1,6 +1,15 @@
 import { LedMode } from "./enum";
 
 export const ButtonIds: string[] = [
+  "l41",
+  "l42",
+  "l43",
+  "l44",
+  "r41",
+  "r42",
+  "r43",
+  "r44",
+
   "du", //"Dpad-Up",
   "dd", //"Dpad-Down",
   "dl", //"Dpad-Left",

@@ -1,25 +1,31 @@
+import traceback
 from wincontrols import hardware
 from config import logging, DEFAULT_MAPPINGS
 from wincontrols.config import Setting
+
 
 def get_setting(option: str):
     try:
         wc = hardware.WinControls(disableFwCheck=False)
         if wc.loaded:
             wc.readConfig()
-        setting : Setting = wc.field[option]
+        setting: Setting = wc.field[option]
         logging.debug(f"{option}: {setting}")
         return setting.get()
     except Exception as e:
-        logging.error(f"Error getting {option}: {e}")    
-    
+        logging.error(f"Error getting {option}: {e}")
+        # logging.error(traceback.format_exc())
+
+
 def set_setting(option: str, value):
     cmd = f"{option}={value}"
     return writeConfig(cmd)
-    
+
+
 def reset_mappings():
     return writeConfig(DEFAULT_MAPPINGS)
-    
+
+
 def writeConfig(config):
     try:
         wc = hardware.WinControls(disableFwCheck=False)
