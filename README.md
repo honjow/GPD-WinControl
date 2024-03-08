@@ -22,9 +22,9 @@ curl -L https://raw.githubusercontent.com/honjow/GPD-WinControl/main/install.sh 
 - 摇杆死区和边界调整
 - 震动强弱调整
 - RGB灯光控制
+- 背键映射
 
 ## TODO
-- [ ] 背键映射
 
 ## 感谢
 - [decky-loader](https://github.com/SteamDeckHomebrew/decky-loader)

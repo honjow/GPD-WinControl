@@ -19,9 +19,9 @@ curl -L https://raw.githubusercontent.com/honjow/GPD-WinControl/main/install.sh 
 - Joystick deadzone and centing
 - Rumble strength
 - RGB light control (Win 4 only)
+- Back button mapping
 
 ## TODO
-- [ ] Back button mapping
 
 ## Thanks
 - [decky-loader](https://github.com/SteamDeckHomebrew/decky-loader)
