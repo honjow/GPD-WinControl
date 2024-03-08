@@ -11,53 +11,58 @@ import { Settings, useMappings } from "../hooks";
 import { IconMap } from "./icons";
 import { LocalizationManager, LocalizeStrEnum } from "../i18n";
 
-export const MappingDropdownItem: VFC<{ id: ButtonId; label: string }> = ({
+export const MappingDropdownItem: VFC<{ id: ButtonId; label: string, hideNone?: boolean }> = ({
   id,
   label,
+  hideNone = false,
 }) => {
   const { value, updateMappingOptions } = useMappings(id);
 
   const SvgIcon = IconMap[id];
 
+  const show = !hideNone || value !== "NONE";
+
   return (
     <PanelSectionRow>
-      <DropdownItem
-        label={
-          <span
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              boxSizing: "border-box",
-              margin: "0",
-              padding: "0",
-              // justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {SvgIcon && <span
+      {show &&
+        <DropdownItem
+          label={
+            <span
               style={{
-                width: '32px',
-                height: '32px',
-                marginRight: '8px',
+                display: "flex",
+                flexDirection: "row",
+                width: "100%",
+                boxSizing: "border-box",
+                margin: "0",
+                padding: "0",
+                // justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              <SvgIcon />
-            </span>}
-            {label}
-          </span>
-        }
-        selectedOption={value}
-        rgOptions={keyCode.map((item) => {
-          return {
-            label: item.label,
-            data: item.label,
-          };
-        })}
-        onChange={(val) => {
-          updateMappingOptions(id, val.label as string);
-        }}
-      ></DropdownItem>
+              {SvgIcon && <span
+                style={{
+                  width: '32px',
+                  height: '32px',
+                  marginRight: '8px',
+                }}
+              >
+                <SvgIcon />
+              </span>}
+              {label}
+            </span>
+          }
+          selectedOption={value}
+          rgOptions={keyCode.map((item) => {
+            return {
+              label: item.label,
+              data: item.label,
+            };
+          })}
+          onChange={(val) => {
+            updateMappingOptions(id, val.label as string);
+          }}
+        />
+      }
     </PanelSectionRow>
   );
 };
@@ -93,14 +98,7 @@ export const MouseMappingComponent: VFC = () => {
     { id: "ll", label: "Left Stick Left" },
     { id: "lr", label: "Left Stick Right" },
 
-    { id: "l41", label: "L41" },
-    { id: "l42", label: "L42" },
-    { id: "l43", label: "L43" },
-    { id: "l44", label: "L44" },
-    { id: "r41", label: "R41" },
-    { id: "r42", label: "R42" },
-    { id: "r43", label: "R43" },
-    { id: "r44", label: "R44" },
+
   ];
 
   return (
@@ -108,6 +106,7 @@ export const MouseMappingComponent: VFC = () => {
       <PanelSectionRow>
         <ButtonItem
           layout="below"
+          // @ts-ignore
           style={{
             height: "20px",
             display: "flex",
@@ -120,12 +119,14 @@ export const MouseMappingComponent: VFC = () => {
         </ButtonItem>
       </PanelSectionRow>
 
-      {showMouseMapping &&
+      {
+        showMouseMapping &&
         mappingsOptions.map((opt, idx) => {
           return (
             <MappingDropdownItem key={idx} id={opt.id} label={opt.label} />
           );
-        })}
+        })
+      }
     </PanelSection>
   );
 };

@@ -1,7 +1,7 @@
 import { definePlugin, ServerAPI, staticClasses } from "decky-frontend-lib";
 import { VFC } from "react";
 import { FaHatCowboy } from "react-icons/fa";
-import { MouseMappingComponent, MoreComponent, RumbleComponent, StickComponent, RGBComponent } from "./components";
+import { MouseMappingComponent, MoreComponent, RumbleComponent, StickComponent, RGBComponent, BackBunntonMappingComponent } from "./components";
 import { PluginManager } from "./backend";
 import { useSupport } from "./hooks";
 import { LocalizationManager } from "./i18n";
@@ -14,6 +14,7 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({ }) => {
   return (
     <div>
       <MouseMappingComponent />
+      <BackBunntonMappingComponent />
       {supportRgb && <RGBComponent />}
       {supportRumbleOption && <RumbleComponent />}
       {supportStickOption && <StickComponent />}
