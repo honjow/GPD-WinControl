@@ -18,10 +18,6 @@ export class Backend {
     await this.serverAPI!.callPluginMethod("set_rumble", { mode: mode });
   }
 
-  public static async log_debug(message: string) {
-    this.serverAPI!.callPluginMethod("log_debug", { message: message });
-  }
-
   // log_info
   public static async log_info(message: string) {
     this.serverAPI!.callPluginMethod("log_info", { message: message });
@@ -33,7 +29,7 @@ export class Backend {
         option: id,
       })
     ).result;
-    Backend.log_debug(`getConfigNumber: ${id} = ${value}`);
+    
     return value as number;
   }
 
@@ -43,7 +39,7 @@ export class Backend {
         option: id,
       })
     ).result;
-    Backend.log_debug(`getConfigStr: ${id} = ${value}`);
+    
     return value as string;
   }
 
@@ -139,6 +135,32 @@ export class Backend {
       option: "ledmode",
       value: modeStr,
     });
+  }
+
+  // get_Xfirmware_version
+  public static async getXFirmwareVersion(): Promise<string> {
+    // return (await this.serverAPI!.callPluginMethod("get_Xfirmware_version", {}))
+    //   .result as string;
+    try {
+      return (
+        await this.serverAPI!.callPluginMethod("get_Xfirmware_version", {})
+      ).result as string;
+    } catch (error) {
+      console.error("getXFirmwareVersion error", error);
+    }
+    return "UNKNOWN";
+  }
+
+  // get_Kfirmware_version
+  public static async getKFirmwareVersion(): Promise<string> {
+    try {
+      return (
+        await this.serverAPI!.callPluginMethod("get_Kfirmware_version", {})
+      ).result as string;
+    } catch (error) {
+      console.error("getKFirmwareVersion error", error);
+    }
+    return "UNKNOWN";
   }
 
   // getMappingOptions

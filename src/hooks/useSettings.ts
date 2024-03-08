@@ -62,6 +62,9 @@ export class Settings {
 
   private _ledMode: LedMode = 0;
 
+  public static xfirmware_version: string = "";
+  public static kfirmware_version: string = "";
+
   public static async init() {
     Backend.getRumble().then((value) => {
       this._instance._rumbleMode = value;
@@ -113,6 +116,16 @@ export class Settings {
 
     Backend.getBackDelays().then((value) => {
       this._instance._backDelays = value;
+    });
+
+    Backend.getXFirmwareVersion().then((value) => {
+      console.log(`XFirmware Version: ${value}`);
+      this.xfirmware_version = value;
+    });
+
+    Backend.getKFirmwareVersion().then((value) => {
+      console.log(`KFirmware Version: ${value}`);
+      this.kfirmware_version = value;
     });
   }
 
