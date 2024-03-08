@@ -136,6 +136,12 @@ class WinControls():
         info = self._parseResponse(self._response)
         if info['Kfirmware'] not in supported:
             raise RuntimeError(f"Unsupported firmware version: {info['Xfirmware']} {info['Kfirmware']}")
+        
+    def readFirmwareVersion(self):
+        self._response = None
+        self._response = self._sendReq(0x10)
+        info = self._parseResponse(self._response)
+        return info['Xfirmware'], info['Kfirmware']
 
     def _waitReady(self, id):
         self._response = None

@@ -25,6 +25,13 @@ def set_setting(option: str, value):
 def reset_mappings():
     return writeConfig(DEFAULT_MAPPINGS)
 
+def get_firmware_version():
+    try:
+        wc = hardware.WinControls(disableFwCheck=False)
+        return wc.readFirmwareVersion()
+    except Exception as e:
+        logging.error(f"Error getting firmware_version: {e}")
+
 
 def writeConfig(config):
     try:
