@@ -28,9 +28,9 @@ jobs:
         run: |
           npm i -g pnpm@8.5.1
           pnpm install --no-frozen-lockfile
-          # pnpm update decky-frontend-lib --latest
+          pnpm update decky-frontend-lib --latest
           pnpm run build
-          tar -czvf GPD-WinControl.tar.gz --transform 's,^,GPD-WinControl/,' dist backend py_modules *.py *.json *.md *.js LICENSE
+          tar -czvf GPD-WinControl.tar.gz --transform 's,^,GPD-WinControl/,' dist py_modules *.py *.json *.md *.js LICENSE
       
       - name: show files
         run: |
@@ -61,9 +61,9 @@ jobs:
         with:
           files: /tmp/artifacts/GPD-WinControl/GPD-WinControl.tar.gz
           tag_name: ${{ github.ref_name }}
-          body:  |
-            GPD-WinControl
           draft: false
+          generate_release_notes: true
           prerelease: contains(github.ref, 'pre')
+          
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
