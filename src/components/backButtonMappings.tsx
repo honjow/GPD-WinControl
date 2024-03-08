@@ -1,7 +1,6 @@
 import {
   ButtonItem,
   DropdownItem,
-  Field,
   PanelSection,
   PanelSectionRow
 } from "decky-frontend-lib";
@@ -15,6 +14,7 @@ interface BackButtonMappingItemProps {
   delay: number;
   updateMappingOptions: (val: string) => void;
   updateDelay: (delay: number) => void;
+  enableSetDelay?: boolean;
 }
 
 export const BackButtonMappingItem: VFC<BackButtonMappingItemProps> = ({
@@ -22,6 +22,7 @@ export const BackButtonMappingItem: VFC<BackButtonMappingItemProps> = ({
   delay,
   updateMappingOptions,
   updateDelay,
+  enableSetDelay = true,
 }) => {
 
   // return (
@@ -65,7 +66,7 @@ export const BackButtonMappingItem: VFC<BackButtonMappingItemProps> = ({
 
   console.log(`val: ${val}, delay: ${delay}`);
 
-  const delays = [0, 10, 20, 30, 40, 50, 100, 200, 300, 500, 1000, 3000];
+  var delays = [0, 10, 20, 30, 40, 50, 100, 200, 300, 500, 1000, 3000];
 
   // 找出 delays 中最接近 delay 的值
   const findClosestDelay = (delay: number) => {
@@ -97,7 +98,7 @@ export const BackButtonMappingItem: VFC<BackButtonMappingItemProps> = ({
           }}
         />
       </PanelSectionRow>
-      <PanelSectionRow>
+      {enableSetDelay && <PanelSectionRow>
         <DropdownItem
           rgOptions={delays.map((item) => {
             return {
@@ -110,13 +111,14 @@ export const BackButtonMappingItem: VFC<BackButtonMappingItemProps> = ({
             updateDelay(val.data as number);
           }}
         />
-      </PanelSectionRow>
+      </PanelSectionRow>}
     </>
   );
 };
 
 export const BackBunntonMappingComponent: VFC = () => {
-  const [showBackButtonMapping, setShowBackButtonMapping] = useState<boolean>(Settings.showBackButtonMapping);
+  const [showL4, setShowL4] = useState<boolean>(Settings.showL4);
+  const [showR4, setShowR4] = useState<boolean>(Settings.showR4);
 
   const {
     backButtonMappings,
@@ -126,8 +128,9 @@ export const BackBunntonMappingComponent: VFC = () => {
   } = useBackButtonMapping();
 
   useEffect(() => {
-    Settings.showBackButtonMapping = showBackButtonMapping;
-  }, [showBackButtonMapping]);
+    Settings.showL4 = showL4;
+    Settings.showR4 = showR4;
+  }, [showL4, showR4]);
 
 
   const l4mappingsOptions: { id: ButtonId; label: string; delayId: ButtonId }[] = [
@@ -146,7 +149,7 @@ export const BackBunntonMappingComponent: VFC = () => {
 
   return (
     <div>
-      <PanelSection title={"BackButon Mappings"}>
+      <PanelSection title={"L4"}>
         <PanelSectionRow>
           <ButtonItem
             layout="below"
@@ -157,14 +160,13 @@ export const BackBunntonMappingComponent: VFC = () => {
               justifyContent: "center",
               alignItems: "center",
             }}
-            onClick={() => setShowBackButtonMapping(!showBackButtonMapping)}
+            onClick={() => setShowL4(!showL4)}
           >
-            {showBackButtonMapping ? <RiArrowDownSFill /> : <RiArrowUpSFill />}
+            {showL4 ? <RiArrowDownSFill /> : <RiArrowUpSFill />}
           </ButtonItem>
         </PanelSectionRow>
-        {showBackButtonMapping && <Field label={"L4"} />}
         {
-          showBackButtonMapping &&
+          showL4 &&
           l4mappingsOptions.map((opt, _) => {
             return (
               <BackButtonMappingItem
@@ -172,15 +174,31 @@ export const BackBunntonMappingComponent: VFC = () => {
                 delay={backDelays.find((item) => item.id === opt.delayId)?.delay || 0}
                 updateMappingOptions={(val) => updateBackButtonMappings(opt.id, val)}
                 updateDelay={(delay) => updateBackDelays(opt.delayId, delay)}
+                enableSetDelay={opt.label !== "L44"}
               />
             );
           }
           )
         }
-        <Field />
-        {showBackButtonMapping && <Field label={"R4"} />}
+      </PanelSection>
+      <PanelSection title={"R4"}>
+        <PanelSectionRow>
+          <ButtonItem
+            layout="below"
+            // @ts-ignore
+            style={{
+              height: "20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+            onClick={() => setShowR4(!showR4)}
+          >
+            {showR4 ? <RiArrowDownSFill /> : <RiArrowUpSFill />}
+          </ButtonItem>
+        </PanelSectionRow>
         {
-          showBackButtonMapping &&
+          showR4 &&
           r4mappingsOptions.map((opt, _) => {
             return (
               <BackButtonMappingItem
@@ -188,6 +206,7 @@ export const BackBunntonMappingComponent: VFC = () => {
                 delay={backDelays.find((item) => item.id === opt.delayId)?.delay || 0}
                 updateMappingOptions={(val) => updateBackButtonMappings(opt.id, val)}
                 updateDelay={(delay) => updateBackDelays(opt.delayId, delay)}
+                enableSetDelay={opt.label !== "R44"}
               />
             );
           }
