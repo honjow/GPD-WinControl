@@ -1,12 +1,16 @@
 import {
   ButtonItem,
   DropdownItem,
+  Menu,
+  MenuItem,
   PanelSection,
-  PanelSectionRow
+  PanelSectionRow,
+  showContextMenu
 } from "decky-frontend-lib";
 import { VFC, useEffect, useState } from "react";
 import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
-import { ButtonId, keyCode } from "../backend";
+import { FiPlusCircle } from "react-icons/fi"
+import { keyCode } from "../backend";
 import { Settings, useBackButtonMapping } from "../hooks";
 
 interface BackButtonMappingItemProps {
@@ -69,6 +73,7 @@ export const BackButtonMappingItem: VFC<BackButtonMappingItemProps> = ({
   var delays = [0, 10, 20, 30, 40, 50, 100, 200, 300, 500, 1000, 3000];
 
   // 找出 delays 中最接近 delay 的值
+  // @ts-ignore
   const findClosestDelay = (delay: number) => {
     let min = Math.abs(delay - delays[0]);
     let closest = delays[0];
@@ -100,9 +105,10 @@ export const BackButtonMappingItem: VFC<BackButtonMappingItemProps> = ({
       </PanelSectionRow>
       {enableSetDelay && <PanelSectionRow>
         <DropdownItem
+          menuLabel="Delay"
           rgOptions={delays.map((item) => {
             return {
-              label: item.toString(),
+              label: item.toString() + " ms",
               data: item,
             };
           })}
@@ -132,20 +138,25 @@ export const BackBunntonMappingComponent: VFC = () => {
     Settings.showR4 = showR4;
   }, [showL4, showR4]);
 
+  const _l4mappingsOptions = backButtonMappings.filter((item) => {
+    return item.id.startsWith("l4") && item.name !== "" && item.name !== "NONE";
+  }).map((item) => {
+    return {
+      id: item.id,
+      label: item.name,
+      delayId: `l4delay${item.id.slice(-1)}`,
+    };
+  });
 
-  const l4mappingsOptions: { id: ButtonId; label: string; delayId: ButtonId }[] = [
-    { id: "l41", label: "L41", delayId: "l4delay1" },
-    { id: "l42", label: "L42", delayId: "l4delay2" },
-    { id: "l43", label: "L43", delayId: "l4delay3" },
-    { id: "l44", label: "L44", delayId: "l4delay4" },
-  ]
-
-  const r4mappingsOptions: { id: ButtonId; label: string; delayId: ButtonId }[] = [
-    { id: "r41", label: "R41", delayId: "r4delay1" },
-    { id: "r42", label: "R42", delayId: "r4delay2" },
-    { id: "r43", label: "R43", delayId: "r4delay3" },
-    { id: "r44", label: "R44", delayId: "r4delay4" },
-  ]
+  const _r4mappingsOptions = backButtonMappings.filter((item) => {
+    return item.id.startsWith("r4") && item.name !== "" && item.name !== "NONE";
+  }).map((item) => {
+    return {
+      id: item.id,
+      label: item.name,
+      delayId: `r4delay${item.id.slice(-1)}`,
+    };
+  });
 
   return (
     <div>
@@ -167,18 +178,49 @@ export const BackBunntonMappingComponent: VFC = () => {
         </PanelSectionRow>
         {
           showL4 &&
-          l4mappingsOptions.map((opt, _) => {
+          _l4mappingsOptions.map((opt, idx) => {
             return (
               <BackButtonMappingItem
                 val={backButtonMappings.find((item) => item.id === opt.id)?.name || ""}
                 delay={backDelays.find((item) => item.id === opt.delayId)?.delay || 0}
                 updateMappingOptions={(val) => updateBackButtonMappings(opt.id, val)}
                 updateDelay={(delay) => updateBackDelays(opt.delayId, delay)}
-                enableSetDelay={opt.label !== "L44"}
+                enableSetDelay={idx < _l4mappingsOptions.length - 1}
               />
             );
           }
           )
+        }
+        {showL4 &&
+          _l4mappingsOptions.length < 4 &&
+          <PanelSectionRow>
+            <ButtonItem
+              layout="below"
+              // @ts-ignore
+              style={{
+                height: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={() => {
+                showContextMenu(
+                  <Menu label={"Add"}>
+                    {keyCode.map((item) => {
+                      return (
+                        <MenuItem onClick={() => {
+                          updateBackButtonMappings(`l4${_l4mappingsOptions.length + 1}`, item.label);
+                        }}>
+                          {item.label}
+                        </MenuItem>
+                      );
+                    })}
+                  </Menu>);
+              }}
+            >
+              <FiPlusCircle />
+            </ButtonItem>
+          </PanelSectionRow>
         }
       </PanelSection>
       <PanelSection title={"R4"}>
@@ -199,18 +241,49 @@ export const BackBunntonMappingComponent: VFC = () => {
         </PanelSectionRow>
         {
           showR4 &&
-          r4mappingsOptions.map((opt, _) => {
+          _r4mappingsOptions.map((opt, idx) => {
             return (
               <BackButtonMappingItem
                 val={backButtonMappings.find((item) => item.id === opt.id)?.name || ""}
                 delay={backDelays.find((item) => item.id === opt.delayId)?.delay || 0}
                 updateMappingOptions={(val) => updateBackButtonMappings(opt.id, val)}
                 updateDelay={(delay) => updateBackDelays(opt.delayId, delay)}
-                enableSetDelay={opt.label !== "R44"}
+                enableSetDelay={idx < _r4mappingsOptions.length - 1}
               />
             );
           }
           )
+        }
+        {showR4 &&
+          _r4mappingsOptions.length < 4 &&
+          <PanelSectionRow>
+            <ButtonItem
+              layout="below"
+              // @ts-ignore
+              style={{
+                height: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              onClick={() => {
+                showContextMenu(
+                  <Menu label={"Add"}>
+                    {keyCode.map((item) => {
+                      return (
+                        <MenuItem onClick={() => {
+                          updateBackButtonMappings(`r4${_r4mappingsOptions.length + 1}`, item.label);
+                        }}>
+                          {item.label}
+                        </MenuItem>
+                      );
+                    })}
+                  </Menu>);
+              }}
+            >
+              <FiPlusCircle />
+            </ButtonItem>
+          </PanelSectionRow>
         }
       </PanelSection>
     </div>
