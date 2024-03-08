@@ -128,10 +128,14 @@ class WinControls():
     def _checkDevice(self):
         if self.disableFwCheck:
             return
-        supported = ['K504', 'K407']
+        supported = [
+            'K504',
+            'K407',
+            'K121' # GPD Win Max 2 6800u
+        ]
         info = self._parseResponse(self._response)
         if info['Kfirmware'] not in supported:
-            raise RuntimeError(f"Unsupported firmware version: {info['Xfirmware']}{info['Kfirmware']}")
+            raise RuntimeError(f"Unsupported firmware version: {info['Xfirmware']} {info['Kfirmware']}")
 
     def _waitReady(self, id):
         self._response = None
