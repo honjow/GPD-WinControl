@@ -6,7 +6,7 @@ import { LocalizationManager, LocalizeStrEnum } from "../i18n";
 
 
 export const MoreComponent: VFC = () => {
-    const { currentVersion, latestVersion } = useUpdate();
+    const { currentVersion, latestVersion, xfirmware_version, kfirmware_version } = useUpdate();
 
     let uptButtonText = LocalizationManager.getString(LocalizeStrEnum.REINSTALL_PLUGIN);
 
@@ -15,7 +15,7 @@ export const MoreComponent: VFC = () => {
     }
 
     return (
-        <PanelSection>
+        <PanelSection title="More">
             <PanelSectionRow>
                 <ButtonItem
                     layout="below"
@@ -33,14 +33,28 @@ export const MoreComponent: VFC = () => {
                 >{uptButtonText}</ButtonItem>
             </PanelSectionRow>
             <PanelSectionRow>
-                <Field disabled label={LocalizationManager.getString(LocalizeStrEnum.INSTALLED_VERSION)}>
+                <Field focusable label={LocalizationManager.getString(LocalizeStrEnum.INSTALLED_VERSION)}>
                     {currentVersion}
                 </Field>
             </PanelSectionRow>
             {Boolean(latestVersion) && (
                 <PanelSectionRow>
-                    <Field disabled label={LocalizationManager.getString(LocalizeStrEnum.LATEST_VERSION)}>
+                    <Field focusable label={LocalizationManager.getString(LocalizeStrEnum.LATEST_VERSION)}>
                         {latestVersion}
+                    </Field>
+                </PanelSectionRow>
+            )}
+            {Boolean(xfirmware_version) && (
+                <PanelSectionRow>
+                    <Field focusable label={"XFirmware Version"}>
+                        {xfirmware_version}
+                    </Field>
+                </PanelSectionRow>
+            )}
+            {Boolean(kfirmware_version) && (
+                <PanelSectionRow>
+                    <Field focusable label={"KFirmware Version"}>
+                        {kfirmware_version}
                     </Field>
                 </PanelSectionRow>
             )}
