@@ -1,5 +1,5 @@
 import { ServerAPI } from "decky-frontend-lib";
-import { ButtonId, LedModeMap } from ".";
+import { BackButtonMapping, BackDelay, ButtonId, LedModeMap } from ".";
 
 export class Backend {
   private static serverAPI: ServerAPI;
@@ -27,14 +27,24 @@ export class Backend {
     this.serverAPI!.callPluginMethod("log_info", { message: message });
   }
 
-  public static async getStickConfig(id: string): Promise<number> {
+  public static async getConfigNumber(id: string): Promise<number> {
     const value = (
       await this.serverAPI!.callPluginMethod("get_config_num", {
         option: id,
       })
     ).result;
-    Backend.log_debug(`getStickConfig: ${id} = ${value}`);
+    Backend.log_debug(`getConfigNumber: ${id} = ${value}`);
     return value as number;
+  }
+
+  public static async getConfigStr(id: ButtonId) {
+    const value = (
+      await this.serverAPI!.callPluginMethod("get_config_str", {
+        option: id,
+      })
+    ).result;
+    Backend.log_debug(`getConfigStr: ${id} = ${value}`);
+    return value as string;
   }
 
   public static setConfig(id: string, value: number | string) {
@@ -42,16 +52,6 @@ export class Backend {
       option: id,
       value: value,
     });
-  }
-
-  public static async getMappingConfig(id: ButtonId) {
-    const value = (
-      await this.serverAPI!.callPluginMethod("get_config_str", {
-        option: id,
-      })
-    ).result;
-    Backend.log_debug(`getMappingConfig: ${id} = ${value}`);
-    return value as string;
   }
 
   public static async resetMappings() {
@@ -139,5 +139,74 @@ export class Backend {
       option: "ledmode",
       value: modeStr,
     });
+  }
+
+  // getMappingOptions
+  public static async getBackMappingsOld(): Promise<BackButtonMapping[]> {
+    const l41 = await Backend.getConfigStr("l41");
+    const l42 = await Backend.getConfigStr("l42");
+    const l43 = await Backend.getConfigStr("l43");
+    const l44 = await Backend.getConfigStr("l44");
+    const r41 = await Backend.getConfigStr("r41");
+    const r42 = await Backend.getConfigStr("r42");
+    const r43 = await Backend.getConfigStr("r43");
+    const r44 = await Backend.getConfigStr("r44");
+    return [
+      { id: "l41", name: l41 },
+      { id: "l42", name: l42 },
+      { id: "l43", name: l43 },
+      { id: "l44", name: l44 },
+      { id: "r41", name: r41 },
+      { id: "r42", name: r42 },
+      { id: "r43", name: r43 },
+      { id: "r44", name: r44 },
+    ];
+  }
+
+  public static async getBackMappings(): Promise<BackButtonMapping[]> {
+    const ids = ["l41", "l42", "l43", "l44", "r41", "r42", "r43", "r44"];
+    const promises = ids.map((id) => Backend.getConfigStr(id));
+    const results = await Promise.all(promises);
+    return ids.map(
+      (id, index) => ({ id, name: results[index] } as BackButtonMapping)
+    );
+  }
+
+  // getBackDelays
+  public static async getBackDelaysOld(): Promise<BackDelay[]> {
+    const l4delay1 = await Backend.getConfigNumber("l4delay1");
+    const l4delay2 = await Backend.getConfigNumber("l4delay2");
+    const l4delay3 = await Backend.getConfigNumber("l4delay3");
+    const l4delay4 = await Backend.getConfigNumber("l4delay4");
+    const r4delay1 = await Backend.getConfigNumber("r4delay1");
+    const r4delay2 = await Backend.getConfigNumber("r4delay2");
+    const r4delay3 = await Backend.getConfigNumber("r4delay3");
+    const r4delay4 = await Backend.getConfigNumber("r4delay4");
+    return [
+      { id: "l4delay1", delay: l4delay1 },
+      { id: "l4delay2", delay: l4delay2 },
+      { id: "l4delay3", delay: l4delay3 },
+      { id: "l4delay4", delay: l4delay4 },
+      { id: "r4delay1", delay: r4delay1 },
+      { id: "r4delay2", delay: r4delay2 },
+      { id: "r4delay3", delay: r4delay3 },
+      { id: "r4delay4", delay: r4delay4 },
+    ];
+  }
+
+  public static async getBackDelays(): Promise<BackDelay[]> {
+    const ids = [
+      "l4delay1",
+      "l4delay2",
+      "l4delay3",
+      "l4delay4",
+      "r4delay1",
+      "r4delay2",
+      "r4delay3",
+      "r4delay4",
+    ];
+    const promises = ids.map((id) => Backend.getConfigNumber(id));
+    const results = await Promise.all(promises);
+    return ids.map((id, index) => ({ id, delay: results[index] } as BackDelay));
   }
 }

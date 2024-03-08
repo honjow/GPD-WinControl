@@ -7,7 +7,7 @@ export const useMappings = (id: ButtonId) => {
 
   useEffect(() => {
     const getData = async () => {
-      const val = await Backend.getMappingConfig(id);
+      const val = await Backend.getConfigStr(id);
       setValue(val);
       Settings.setMappingOption(id, val);
     };

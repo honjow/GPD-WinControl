@@ -10,6 +10,15 @@ export const ButtonIds: string[] = [
   "r43",
   "r44",
 
+  "l4delay1",
+  "l4delay2",
+  "l4delay3",
+  "l4delay4",
+  "r4delay1",
+  "r4delay2",
+  "r4delay3",
+  "r4delay4",
+
   "du", //"Dpad-Up",
   "dd", //"Dpad-Down",
   "dl", //"Dpad-Left",
@@ -37,6 +46,11 @@ export const ButtonIds: string[] = [
 ];
 
 export type ButtonId = (typeof ButtonIds)[number];
+export type BackButtonId = "l41" | "l42" | "l43" | "l44" | "r41" | "r42" | "r43" | "r44"
+export type BackDelayId = "l4delay1" | "l4delay2" | "l4delay3" | "l4delay4" | "r4delay1" | "r4delay2" | "r4delay3" | "r4delay4"
+
+export type BackDelay = { id: BackDelayId; delay: number };
+export type BackButtonMapping = { id: BackButtonId; name: string };
 
 export type MappingOption = {
   id: ButtonId;

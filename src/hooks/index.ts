@@ -5,3 +5,4 @@ export * from "./useStick";
 export * from "./useUpdate";
 export * from "./useSupport";
 export * from "./useRgb";
+export * from "./useBackButtonMapping";
