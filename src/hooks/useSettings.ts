@@ -12,6 +12,7 @@ export class Settings {
 
   private _showMouseMapping: boolean = false;
   private _rumbleMode: number = 1;
+  private _showBackButtonMapping: boolean = false;
 
   private _stickOptions: { id: stickOptionId; value: number }[] = [
     { id: "ldead", value: 0 },
@@ -86,6 +87,14 @@ export class Settings {
   }
   public static set showMouseMapping(value: boolean) {
     this._instance._showMouseMapping = value;
+  }
+
+  public static get showBackButtonMapping(): boolean {
+    return this._instance._showBackButtonMapping;
+  }
+
+  public static set showBackButtonMapping(value: boolean) {
+    this._instance._showBackButtonMapping = value;
   }
 
   public static get rumbleMode(): number {
