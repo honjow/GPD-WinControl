@@ -4,7 +4,6 @@ import os
 # For easy intellisense checkout the decky-loader code one directory up
 # or add the `decky-loader/plugin` path to `python.analysis.extraPaths` in `.vscode/settings.json`
 import decky_plugin
-import rumble
 import update
 import gpd_setting
 from config import (
@@ -24,16 +23,18 @@ class Plugin:
         )
 
     async def get_rumble(self):
-        logging.debug("Getting rumble")
         try:
-            return int(rumble.get_rumble())
+            return int(gpd_setting.get_setting("rumble"))
         except Exception as e:
             logging.error(f"Error getting rumble: {e}")
-            return 0
+            return 1
 
     async def set_rumble(self, mode: int):
-        logging.debug(f"Setting rumble to {mode}")
-        return rumble.set_rumble(mode)
+        try:
+            return gpd_setting.set_setting("rumble", mode)
+        except Exception as e:
+            logging.error(f"Error setting rumble: {e}")
+            return False
 
     async def get_config_num(self, option):
         try:
@@ -79,6 +80,22 @@ class Plugin:
 
     async def get_support_stick_option(self):
         return IS_STICK_SUPPORTED
+    
+    async def get_Xfirmware_version(self):
+        try:
+            xfirmware, _ = gpd_setting.get_firmware_version()
+            return xfirmware
+        except Exception as e:
+            logging.error(f"Error getting Xfirmware version: {e}")
+            return "UNKNOWN"
+        
+    async def get_Kfirmware_version(self):
+        try:
+            _, kfirmware = gpd_setting.get_firmware_version()
+            return kfirmware
+        except Exception as e:
+            logging.error(f"Error getting Kfirmware version: {e}")
+            return "UNKNOWN"
 
     async def get_rgb(self):
         try:
