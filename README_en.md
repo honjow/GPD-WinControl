@@ -16,7 +16,7 @@ curl -L https://raw.githubusercontent.com/honjow/GPD-WinControl/main/install.sh 
 
 ## Features
 - Key mappings for mouse mode
-- Joystick deadzone and centing
+- Joystick deadzone and centering
 - Rumble strength
 - RGB light control (Win 4 only)
 - Back button mapping
