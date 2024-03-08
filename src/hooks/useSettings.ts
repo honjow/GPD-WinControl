@@ -1,4 +1,8 @@
 import {
+  BackButtonId,
+  BackButtonMapping,
+  BackDelay,
+  BackDelayId,
   Backend,
   ButtonId,
   ButtonIds,
@@ -23,6 +27,27 @@ export class Settings {
 
   private _mapingsOptions: { id: ButtonId; label: string }[] = [];
 
+  private _backButtonMappings: BackButtonMapping[] = [
+    { id: "l41", name: "" },
+    { id: "l42", name: "" },
+    { id: "l43", name: "" },
+    { id: "l44", name: "" },
+    { id: "r41", name: "" },
+    { id: "r42", name: "" },
+    { id: "r43", name: "" },
+    { id: "r44", name: "" },
+  ];
+  private _backDelays: BackDelay[] = [
+    { id: "l4delay1", delay: 0 },
+    { id: "l4delay2", delay: 0 },
+    { id: "l4delay3", delay: 0 },
+    { id: "l4delay4", delay: 0 },
+    { id: "r4delay1", delay: 0 },
+    { id: "r4delay2", delay: 0 },
+    { id: "r4delay3", delay: 0 },
+    { id: "r4delay4", delay: 0 },
+  ];
+
   private _currentVersion: string = "";
   private _latestVersion: string = "";
 
@@ -42,13 +67,13 @@ export class Settings {
     });
 
     this._instance._stickOptions.forEach(async (opt) => {
-      Backend.getStickConfig(opt.id).then((value) => {
+      Backend.getConfigNumber(opt.id).then((value) => {
         opt.value = value;
       });
     });
 
     ButtonIds.forEach((id) => {
-      Backend.getMappingConfig(id).then((value) => {
+      Backend.getConfigStr(id).then((value) => {
         this._instance._mapingsOptions.push({ id, label: value });
       });
     });
@@ -79,6 +104,14 @@ export class Settings {
     });
     Backend.getLedMode().then((mode) => {
       this._instance._ledMode = mode;
+    });
+
+    Backend.getBackMappings().then((value) => {
+      this._instance._backButtonMappings = value;
+    });
+
+    Backend.getBackDelays().then((value) => {
+      this._instance._backDelays = value;
     });
   }
 
@@ -219,5 +252,52 @@ export class Settings {
 
   public static set ledMode(value: LedMode) {
     this._instance._ledMode = value;
+  }
+
+  public static get backButtonMappings(): BackButtonMapping[] {
+    return this._instance._backButtonMappings;
+  }
+
+  public static set backButtonMappings(value: BackButtonMapping[]) {
+    this._instance._backButtonMappings = value;
+  }
+
+  public static get backDelays(): BackDelay[] {
+    return this._instance._backDelays;
+  }
+
+  public static set backDelays(value: BackDelay[]) {
+    this._instance._backDelays = value;
+  }
+
+  public static getBackMappingOption(id: BackButtonId): string {
+    return (
+      this._instance._backButtonMappings.find((opt) => opt.id === id)?.name ||
+      "NONE"
+    );
+  }
+
+  public static setBackMappingOption(id: BackButtonId, value: string) {
+    const index = this._instance._backButtonMappings.findIndex(
+      (opt) => opt.id === id
+    );
+    if (index === -1) {
+      this._instance._backButtonMappings.push({ id, name: value });
+      return;
+    }
+    this._instance._backButtonMappings[index].name = value;
+  }
+
+  public static getBackDelay(id: BackDelayId): number {
+    return this._instance._backDelays.find((opt) => opt.id === id)?.delay || 0;
+  }
+
+  public static setBackDelay(id: BackDelayId, value: number) {
+    const index = this._instance._backDelays.findIndex((opt) => opt.id === id);
+    if (index === -1) {
+      this._instance._backDelays.push({ id, delay: value });
+      return;
+    }
+    this._instance._backDelays[index].delay = value;
   }
 }

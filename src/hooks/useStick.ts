@@ -7,7 +7,7 @@ export const useStickOptions = (id: stickOptionId) => {
 
   useEffect(() => {
     const getData = async () => {
-      const val = await Backend.getStickConfig(id);
+      const val = await Backend.getConfigNumber(id);
       setValue(val);
       Settings.setStickOption(id, val);
     };
