@@ -3,7 +3,11 @@ English | [简体中文](./README.md)
 
 A Decky Plugin of [decky-loader](https://github.com/SteamDeckHomebrew/decky-loader)
 
-Decky version of GPD's WinControls for the GPD Win Mini and Win 4
+Decky version of GPD's WinControls
+Verified devices:
+- Win 4
+- Win Max 2
+- Win Mini
 
 ![image](./screenshot/screenshot_1.jpg)
 ![image](./screenshot/screenshot_2.jpg)

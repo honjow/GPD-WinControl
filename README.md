@@ -6,7 +6,11 @@
 
 用于 [decky-loader](https://github.com/SteamDeckHomebrew/decky-loader) 的插件
 
-Decky 版本的 WinControl, GPD Win Mini 和 Win 4 适用， Max 2 未测试
+Decky 版本的 WinControl
+验证设备:
+- Win 4
+- Win Max 2
+- Win Mini
 
 ![image](./screenshot/screenshot_1.jpg)
 ![image](./screenshot/screenshot_2.jpg)
