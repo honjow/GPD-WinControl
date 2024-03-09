@@ -138,9 +138,9 @@ export const BackBunntonMappingComponent: VFC = () => {
     Settings.showR4 = showR4;
   }, [showL4, showR4]);
 
-  const _l4mappingsOptions = backButtonMappings.filter((item) => {
-    return item.id.startsWith("l4") && item.name !== "" && item.name !== "NONE";
-  }).map((item) => {
+  const l4Items = backButtonMappings.filter(item => item.id.startsWith("l4"));
+  const l4LastIndex = l4Items.slice().reverse().findIndex(item => item.name !== "NONE");
+  const _l4mappingsOptions = l4Items.slice(0, l4Items.length - l4LastIndex).map((item) => {
     return {
       id: item.id,
       label: item.name,
@@ -148,9 +148,9 @@ export const BackBunntonMappingComponent: VFC = () => {
     };
   });
 
-  const _r4mappingsOptions = backButtonMappings.filter((item) => {
-    return item.id.startsWith("r4") && item.name !== "" && item.name !== "NONE";
-  }).map((item) => {
+  const r4Items = backButtonMappings.filter(item => item.id.startsWith("r4"));
+  const r4LastIndex = r4Items.slice().reverse().findIndex(item => item.name !== "NONE");
+  const _r4mappingsOptions = r4Items.slice(0, r4Items.length - r4LastIndex).map((item) => {
     return {
       id: item.id,
       label: item.name,
