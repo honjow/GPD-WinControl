@@ -7,6 +7,7 @@
 用于 [decky-loader](https://github.com/SteamDeckHomebrew/decky-loader) 的插件
 
 Decky 版本的 WinControl
+
 验证设备:
 - Win 4
 - Win Max 2
