@@ -17,6 +17,7 @@ export const useBackButtonMapping = () => {
 
   useEffect(() => {
     const getData = async () => {
+      console.log("useBackButtonMapping: getData");
       const _setBackButtonMappings: BackButtonMapping[] = await Backend.getBackMappings();
       const _setBackDelays: BackDelay[] = await Backend.getBackDelays();
 
@@ -36,6 +37,7 @@ export const useBackButtonMapping = () => {
       }
       return item;
     });
+    console.log(`>>>>><< _backButtonMappings: ${_backButtonMappings.map((item) => item.name)}`);
     setBackButtonMappings(_backButtonMappings);
     Settings.backButtonMappings = _backButtonMappings;
   };

@@ -15,8 +15,8 @@ export const useMappings = (id: ButtonId) => {
   }, [value]);
 
   const updateMappingOptions = (id: string, value: string) => {
-    Backend.setConfig(id, value);
     Settings.setMappingOption(id, value);
+    Backend.setConfig(id, value);
   };
 
   return {
