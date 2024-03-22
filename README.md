@@ -10,12 +10,13 @@ Decky 版本的 WinControl
 
 验证设备:
 - Win 4
-- Win Max 2
+- Win Max 2 (6800u)
 - Win Mini
 
-![image](./screenshot/screenshot_1.jpg)
-![image](./screenshot/screenshot_2.jpg)
-![image](./screenshot/screenshot_3.jpg)
+![image](./screenshot/en_1.jpg)
+![image](./screenshot/en_2.jpg)
+![image](./screenshot/en_3.jpg)
+![image](./screenshot/en_4.jpg)
 
 ## 一键安装
 ```

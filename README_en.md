@@ -7,12 +7,13 @@ Decky version of GPD's WinControls
 
 Verified devices:
 - Win 4
-- Win Max 2
+- Win Max 2 (6800u)
 - Win Mini
 
-![image](./screenshot/screenshot_1.jpg)
-![image](./screenshot/screenshot_2.jpg)
-![image](./screenshot/screenshot_3.jpg)
+![image](./screenshot/en_1.jpg)
+![image](./screenshot/en_2.jpg)
+![image](./screenshot/en_3.jpg)
+![image](./screenshot/en_4.jpg)
 
 ## Quick Install
 ```
