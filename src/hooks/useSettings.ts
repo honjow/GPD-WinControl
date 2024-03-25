@@ -11,13 +11,28 @@ import {
   stickOptionId,
 } from "../backend";
 
+export class SettingsData {
+  public showMouseMapping: boolean = false;
+  public showL4: boolean = false;
+  public showR4: boolean = false;
+
+  public deepCopy(settingsData: SettingsData) {
+    this.showMouseMapping = settingsData.showMouseMapping;
+    this.showL4 = settingsData.showL4;
+    this.showR4 = settingsData.showR4;
+  }
+}
+
 export class Settings {
   private static _instance: Settings = new Settings();
 
-  private _showMouseMapping: boolean = false;
+  private _settingsData: SettingsData;
+
+  // private _showMouseMapping: boolean = false;
+  // private _showL4: boolean = false;
+  // private _showR4: boolean = false;
+
   private _rumbleMode: number = 1;
-  private _showL4: boolean = false;
-  private _showR4: boolean = false;
 
   private _stickOptions: { id: stickOptionId; value: number }[] = [
     { id: "ldead", value: 0 },
@@ -65,7 +80,26 @@ export class Settings {
   public static xfirmware_version: string = "";
   public static kfirmware_version: string = "";
 
+  private constructor() {
+    this._settingsData = new SettingsData();
+  }
+
+  private static get settingsData(): SettingsData {
+    return this._instance._settingsData;
+  }
+
+  public static async loadSettingsData() {
+    const _settingsData = await Backend.getSettings();
+    this.settingsData.deepCopy(_settingsData);
+  }
+
+  public static async saveSettingsData() {
+    await Backend.setSettings(this.settingsData);
+  }
+
   public static async init() {
+    await this.loadSettingsData();
+
     Backend.getRumble().then((value) => {
       this._instance._rumbleMode = value;
     });
@@ -130,26 +164,29 @@ export class Settings {
   }
 
   public static get showMouseMapping(): boolean {
-    return this._instance._showMouseMapping;
+    return this.settingsData.showMouseMapping;
   }
   public static set showMouseMapping(value: boolean) {
-    this._instance._showMouseMapping = value;
+    this.settingsData.showMouseMapping = value;
+    this.saveSettingsData()
   }
 
   public static get showL4(): boolean {
-    return this._instance._showL4;
+    return this.settingsData.showL4;
   }
 
   public static set showL4(value: boolean) {
-    this._instance._showL4 = value;
+    this.settingsData.showL4 = value;
+    this.saveSettingsData()
   }
 
   public static get showR4(): boolean {
-    return this._instance._showR4;
+    return this.settingsData.showR4;
   }
 
   public static set showR4(value: boolean) {
-    this._instance._showR4 = value;
+    this.settingsData.showR4 = value;
+    this.saveSettingsData()
   }
 
   public static get rumbleMode(): number {

@@ -11,6 +11,7 @@ from config import (
     IS_RGB_SUPPORTED,
     IS_RUMBLE_SUPPORTED,
     IS_STICK_SUPPORTED,
+    CONFIG_KEY,
 )
 import utils
 from settings import SettingsManager
@@ -21,6 +22,14 @@ class Plugin:
         self.settings = SettingsManager(
             name="config", settings_directory=decky_plugin.DECKY_PLUGIN_SETTINGS_DIR
         )
+
+    async def get_settings(self):
+        return self.settings.getSetting(CONFIG_KEY)
+    
+    async def set_settings(self, settings):
+        self.settings.setSetting(CONFIG_KEY, settings)
+        logging.info(f"save Settings: {settings}")
+        return True
 
     async def get_rumble(self):
         try:
