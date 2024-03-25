@@ -1,5 +1,6 @@
 import { ServerAPI } from "decky-frontend-lib";
 import { BackButtonMapping, BackDelay, ButtonId, LedModeMap } from ".";
+import { SettingsData } from "../hooks";
 
 export class Backend {
   private static serverAPI: ServerAPI;
@@ -230,5 +231,21 @@ export class Backend {
     const promises = ids.map((id) => Backend.getConfigNumber(id));
     const results = await Promise.all(promises);
     return ids.map((id, index) => ({ id, delay: results[index] } as BackDelay));
+  }
+
+  // get_settings
+  public static async getSettings(): Promise<SettingsData> {
+    const res = await this.serverAPI!.callPluginMethod("get_settings", {});
+    if (!res.success) {
+      return new SettingsData();
+    }
+    return res.result as SettingsData;
+  }
+
+  // set_settings
+  public static async setSettings(settings: SettingsData) {
+    return await this.serverAPI!.callPluginMethod("set_settings", {
+      settings: settings,
+    });
   }
 }

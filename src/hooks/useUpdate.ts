@@ -4,7 +4,7 @@ import { Settings } from ".";
 
 export const useUpdate = () => {
   const [currentVersion, setCurrentVersion] = useState<string>(Settings.currentVersion);
-  const [latestVersion, setLatestVersion] = useState<string>(Settings.currentVersion);
+  const [latestVersion, setLatestVersion] = useState<string>(Settings.latestVersion);
 
   const [xfirmware_version, _] = useState<string>(Settings.xfirmware_version);
   const [kfirmware_version, __] = useState<string>(Settings.kfirmware_version);
