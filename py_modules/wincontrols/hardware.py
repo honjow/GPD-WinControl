@@ -131,7 +131,8 @@ class WinControls():
         supported = [
             'K504',
             'K407',
-            'K121' # GPD Win Max 2 6800u
+            'K121', # GPD Win Max 2 6800u
+            'K123', 
         ]
         info = self._parseResponse(self._response)
         if info['Kfirmware'] not in supported:
