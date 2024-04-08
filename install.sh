@@ -13,7 +13,7 @@ package="GPD-WinControl"
 echo "installing $package"
 
 temp=$(mktemp -d)
-
+chmod -R +w "${HOME}/homebrew/plugins/"
 plugin_dir="${HOME}/homebrew/plugins/${package}"
 sudo mkdir -p $plugin_dir
 
