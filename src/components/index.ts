@@ -6,3 +6,4 @@ export * from "./icons";
 export * from "./more";
 export * from "./rgb";
 export * from "./backButtonMappings";
+export * from "./actionButtonItem";

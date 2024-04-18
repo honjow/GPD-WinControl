@@ -1,8 +1,9 @@
-import { ButtonItem, Field, PanelSection, PanelSectionRow } from "decky-frontend-lib";
+import { Field, PanelSection, PanelSectionRow } from "decky-frontend-lib";
 import { VFC } from "react";
 import { Backend } from "../backend";
 import { useUpdate } from "../hooks";
 import { LocalizationManager, LocalizeStrEnum } from "../i18n";
+import { ActionButtonItem } from ".";
 
 
 export const MoreComponent: VFC = () => {
@@ -17,20 +18,20 @@ export const MoreComponent: VFC = () => {
     return (
         <PanelSection title="More">
             <PanelSectionRow>
-                <ButtonItem
+                <ActionButtonItem
                     layout="below"
                     onClick={() => {
                         Backend.resetMappings();
                     }}
-                >{LocalizationManager.getString(LocalizeStrEnum.RESET_MAPPING)}</ButtonItem>
+                >{LocalizationManager.getString(LocalizeStrEnum.RESET_MAPPING)}</ActionButtonItem>
             </PanelSectionRow>
             <PanelSectionRow>
-                <ButtonItem
+                <ActionButtonItem
                     layout="below"
                     onClick={() => {
                         Backend.updateLatest();
                     }}
-                >{uptButtonText}</ButtonItem>
+                >{uptButtonText}</ActionButtonItem>
             </PanelSectionRow>
             <PanelSectionRow>
                 <Field focusable label={LocalizationManager.getString(LocalizeStrEnum.INSTALLED_VERSION)}>
