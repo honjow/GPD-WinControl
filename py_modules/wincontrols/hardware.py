@@ -130,6 +130,7 @@ class WinControls():
             return
         supported = [
             'K504',
+            'K406',
             'K407',
             'K121', # GPD Win Max 2 6800u
             'K123', 
