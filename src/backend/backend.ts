@@ -197,7 +197,9 @@ export class Backend {
     if (!res.success) {
       return new SettingsData();
     }
-    return res.result as SettingsData;
+    let data = new SettingsData();
+    data.fromDict(res.result as Record<string, unknown>);
+    return data;
   }
 
   // set_settings

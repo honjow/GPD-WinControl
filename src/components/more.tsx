@@ -1,13 +1,19 @@
-import { Field, PanelSection, PanelSectionRow } from "decky-frontend-lib";
+import { Field, PanelSection, PanelSectionRow, ToggleField } from "decky-frontend-lib";
 import { VFC } from "react";
 import { Backend } from "../backend";
-import { useUpdate } from "../hooks";
+import { useMore } from "../hooks";
 import { LocalizationManager, LocalizeStrEnum } from "../i18n";
 import { ActionButtonItem } from ".";
 
 
 export const MoreComponent: VFC = () => {
-    const { currentVersion, latestVersion, xfirmware_version, kfirmware_version } = useUpdate();
+    const { currentVersion,
+        latestVersion,
+        xfirmwareVersion,
+        kfirmwareVersion,
+        disableFirmwareCheck,
+        setDisableFirmwareCheck,
+    } = useMore();
 
     let uptButtonText = LocalizationManager.getString(LocalizeStrEnum.REINSTALL_PLUGIN);
 
@@ -15,8 +21,17 @@ export const MoreComponent: VFC = () => {
         uptButtonText = `${LocalizationManager.getString(LocalizeStrEnum.UPDATE_PLUGIN)} ${latestVersion}`;
     }
 
+    // firmware_check
+
     return (
         <PanelSection title="More">
+            <PanelSectionRow>
+                <ToggleField
+                    label={"Disable Firmware Check"}
+                    checked={disableFirmwareCheck}
+                    onChange={setDisableFirmwareCheck}
+                />
+            </PanelSectionRow>
             <PanelSectionRow>
                 <ActionButtonItem
                     layout="below"
@@ -45,17 +60,17 @@ export const MoreComponent: VFC = () => {
                     </Field>
                 </PanelSectionRow>
             )}
-            {Boolean(xfirmware_version) && (
+            {Boolean(xfirmwareVersion) && (
                 <PanelSectionRow>
                     <Field focusable label={"XFirmware Version"}>
-                        {xfirmware_version}
+                        {xfirmwareVersion}
                     </Field>
                 </PanelSectionRow>
             )}
-            {Boolean(kfirmware_version) && (
+            {Boolean(kfirmwareVersion) && (
                 <PanelSectionRow>
                     <Field focusable label={"KFirmware Version"}>
-                        {kfirmware_version}
+                        {kfirmwareVersion}
                     </Field>
                 </PanelSectionRow>
             )}
