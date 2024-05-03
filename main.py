@@ -48,12 +48,12 @@ class Plugin:
     async def get_config_num(self, option):
         try:
             result = gpd_setting.get_setting(option)
-            val = int(result) if result else -1
+            val = int(result) if result is not None else 0
             logging.info(f"Getting {option}: {val}")
             return val
         except Exception as e:
             logging.error(f"Error getting {option}: {e}")
-            return -1
+            return 0
 
     async def get_config_str(self, option):
         try:
