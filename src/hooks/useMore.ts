@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import { Backend } from "../backend";
 import { Settings } from ".";
 
-export const useUpdate = () => {
+export const useMore = () => {
   const [currentVersion, setCurrentVersion] = useState<string>(Settings.currentVersion);
   const [latestVersion, setLatestVersion] = useState<string>(Settings.latestVersion);
 
-  const [xfirmware_version, _] = useState<string>(Settings.xfirmware_version);
-  const [kfirmware_version, __] = useState<string>(Settings.kfirmware_version);
+  const [xfirmwareVersion, _] = useState<string>(Settings.xfirmwareVersion);
+  const [kfirmwareVersion, __] = useState<string>(Settings.kfirmwareVersion);
+
+  const [disableFirmwareCheck, setDisableFirmwareCheck] = useState<boolean>(Settings.disableFirmwareCheck);
 
   useEffect(() => {
     const getData = async () => {
@@ -27,6 +29,10 @@ export const useUpdate = () => {
     getData();
   });
 
+  useEffect(() => {
+    Settings.disableFirmwareCheck = disableFirmwareCheck;
+  }, [disableFirmwareCheck]);
+
   // useEffect(() => {
   //   const getData = async () => {
   //     const xfirmware_version = await Backend.getXFirmwareVersion();
@@ -39,5 +45,12 @@ export const useUpdate = () => {
   //   getData();
   // });
 
-  return { currentVersion, latestVersion, xfirmware_version, kfirmware_version};
+  return {
+    currentVersion,
+    latestVersion,
+    xfirmwareVersion,
+    kfirmwareVersion,
+    disableFirmwareCheck,
+    setDisableFirmwareCheck,
+  };
 };

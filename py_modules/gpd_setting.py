@@ -1,12 +1,24 @@
-import traceback
+import decky_plugin
 from wincontrols import hardware
-from config import logging, DEFAULT_MAPPINGS
+from config import CONFIG_KEY, logging, DEFAULT_MAPPINGS
 from wincontrols.config import Setting
+from settings import SettingsManager
+
+
+def disable_firmware_check():
+    settings = SettingsManager(
+        name="config", settings_directory=decky_plugin.DECKY_PLUGIN_SETTINGS_DIR
+    )
+    conf = settings.getSetting(CONFIG_KEY)
+    if conf is None:
+        return False
+    return conf.get("disableFirmwareCheck", False)
 
 
 def get_setting(option: str):
     try:
-        wc = hardware.WinControls(disableFwCheck=False)
+        disableFwCheck = disable_firmware_check()
+        wc = hardware.WinControls(disableFwCheck=disableFwCheck)
         if wc.loaded:
             wc.readConfig()
         setting: Setting = wc.field[option]
@@ -25,9 +37,10 @@ def set_setting(option: str, value):
 def reset_mappings():
     return writeConfig(DEFAULT_MAPPINGS)
 
+
 def get_firmware_version():
     try:
-        wc = hardware.WinControls(disableFwCheck=False)
+        wc = hardware.WinControls(disableFwCheck=True)
         return wc.readFirmwareVersion()
     except Exception as e:
         logging.error(f"Error getting firmware_version: {e}")
@@ -35,7 +48,8 @@ def get_firmware_version():
 
 def writeConfig(config):
     try:
-        wc = hardware.WinControls(disableFwCheck=False)
+        disableFwCheck = disable_firmware_check()
+        wc = hardware.WinControls(disableFwCheck=disableFwCheck)
         if wc.loaded:
             try:
                 if wc.setConfig(config=config):

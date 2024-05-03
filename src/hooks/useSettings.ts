@@ -15,11 +15,21 @@ export class SettingsData {
   public showMouseMapping: boolean = false;
   public showL4: boolean = false;
   public showR4: boolean = false;
+  public disableFirmwareCheck: boolean = false;
 
   public deepCopy(settingsData: SettingsData) {
     this.showMouseMapping = settingsData.showMouseMapping;
     this.showL4 = settingsData.showL4;
     this.showR4 = settingsData.showR4;
+    this.disableFirmwareCheck = settingsData.disableFirmwareCheck;
+  }
+
+  public fromDict(dict: { [key: string]: any }) {
+    for (let key of Object.keys(dict)) {
+      if (this.hasOwnProperty(key)) {
+        this[key] = dict[key];
+      }
+    }
   }
 }
 
@@ -27,10 +37,6 @@ export class Settings {
   private static _instance: Settings = new Settings();
 
   private _settingsData: SettingsData;
-
-  // private _showMouseMapping: boolean = false;
-  // private _showL4: boolean = false;
-  // private _showR4: boolean = false;
 
   private _rumbleMode: number = 1;
 
@@ -77,8 +83,8 @@ export class Settings {
 
   private _ledMode: LedMode = 0;
 
-  public static xfirmware_version: string = "";
-  public static kfirmware_version: string = "";
+  public static xfirmwareVersion: string = "";
+  public static kfirmwareVersion: string = "";
 
   private constructor() {
     this._settingsData = new SettingsData();
@@ -154,12 +160,12 @@ export class Settings {
 
     Backend.getXFirmwareVersion().then((value) => {
       console.log(`XFirmware Version: ${value}`);
-      this.xfirmware_version = value;
+      this.xfirmwareVersion = value;
     });
 
     Backend.getKFirmwareVersion().then((value) => {
       console.log(`KFirmware Version: ${value}`);
-      this.kfirmware_version = value;
+      this.kfirmwareVersion = value;
     });
   }
 
@@ -186,6 +192,15 @@ export class Settings {
 
   public static set showR4(value: boolean) {
     this.settingsData.showR4 = value;
+    this.saveSettingsData()
+  }
+
+  public static get disableFirmwareCheck(): boolean {
+    return this.settingsData.disableFirmwareCheck;
+  }
+
+  public static set disableFirmwareCheck(value: boolean) {
+    this.settingsData.disableFirmwareCheck = value;
     this.saveSettingsData()
   }
 

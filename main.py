@@ -25,7 +25,7 @@ class Plugin:
 
     async def get_settings(self):
         return self.settings.getSetting(CONFIG_KEY)
-    
+
     async def set_settings(self, settings):
         self.settings.setSetting(CONFIG_KEY, settings)
         logging.info(f"save Settings: {settings}")
@@ -47,7 +47,8 @@ class Plugin:
 
     async def get_config_num(self, option):
         try:
-            val = int(gpd_setting.get_setting(option))
+            result = gpd_setting.get_setting(option)
+            val = int(result) if result else -1
             logging.info(f"Getting {option}: {val}")
             return val
         except Exception as e:
@@ -56,16 +57,21 @@ class Plugin:
 
     async def get_config_str(self, option):
         try:
-            val = str(gpd_setting.get_setting(option))
+            result = gpd_setting.get_setting(option)
+            val = str(result) if result else ""
             logging.info(f"Getting {option}: {val}")
             return val
         except Exception as e:
             logging.error(f"Error getting {option}: {e}")
-            return "NONE"
+            return ""
 
     async def set_config(self, option, value):
         logging.info(f"Setting {option} to {value}")
-        return gpd_setting.set_setting(option, value)
+        try:
+            return gpd_setting.set_setting(option, value)
+        except Exception as e:
+            logging.error(f"Error setting {option}: {e}")
+            return False
 
     async def reset_mappings(self):
         logging.info("Resetting mappings")
@@ -93,7 +99,7 @@ class Plugin:
 
     async def get_support_stick_option(self):
         return IS_STICK_SUPPORTED
-    
+
     async def get_Xfirmware_version(self):
         try:
             xfirmware, _ = gpd_setting.get_firmware_version()
@@ -101,7 +107,7 @@ class Plugin:
         except Exception as e:
             logging.error(f"Error getting Xfirmware version: {e}")
             return "UNKNOWN"
-        
+
     async def get_Kfirmware_version(self):
         try:
             _, kfirmware = gpd_setting.get_firmware_version()
@@ -136,7 +142,7 @@ class Plugin:
         except Exception as e:
             logging.error(f"Error setting RGB: {e}")
             return False
-        
+
     async def get_language(self):
         logging.info("Getting language")
         # return "schinese"
