@@ -47,24 +47,28 @@ class Plugin:
 
     async def get_config_num(self, option):
         try:
-            return int(gpd_setting.get_setting(option))
+            val = int(gpd_setting.get_setting(option))
+            logging.info(f"Getting {option}: {val}")
+            return val
         except Exception as e:
             logging.error(f"Error getting {option}: {e}")
             return -1
 
     async def get_config_str(self, option):
         try:
-            return str(gpd_setting.get_setting(option))
+            val = str(gpd_setting.get_setting(option))
+            logging.info(f"Getting {option}: {val}")
+            return val
         except Exception as e:
             logging.error(f"Error getting {option}: {e}")
             return "NONE"
 
     async def set_config(self, option, value):
-        logging.debug(f"Setting {option} to {value}")
+        logging.info(f"Setting {option} to {value}")
         return gpd_setting.set_setting(option, value)
 
     async def reset_mappings(self):
-        logging.debug("Resetting mappings")
+        logging.info("Resetting mappings")
         return gpd_setting.reset_mappings()
 
     async def update_latest(self):
