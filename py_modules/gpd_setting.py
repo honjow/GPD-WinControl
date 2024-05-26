@@ -25,7 +25,7 @@ def get_setting(option: str):
         logging.debug(f"{option}: {setting}")
         return setting.get()
     except Exception as e:
-        logging.error(f"Error getting {option}: {e}")
+        logging.error(f"Error getting {option}: {e}", exc_info=True)
         # logging.error(traceback.format_exc())
 
 
@@ -43,7 +43,7 @@ def get_firmware_version():
         wc = hardware.WinControls(disableFwCheck=True)
         return wc.readFirmwareVersion()
     except Exception as e:
-        logging.error(f"Error getting firmware_version: {e}")
+        logging.error(f"Error getting firmware_version: {e}", exc_info=True)
 
 
 def writeConfig(config):
@@ -56,11 +56,11 @@ def writeConfig(config):
                     wc.writeConfig()
                     return True
             except Exception as e:
-                logging.error(f"Error writing config: {e}")
+                logging.error(f"Error writing config: {e}", exc_info=True)
                 return False
         else:
             logging.error("Error writing config: WinControls not loaded")
             return False
     except Exception as e:
-        logging.error(f"Error writing config: {e}")
+        logging.error(f"Error writing config: {e}", exc_info=True)
         return False

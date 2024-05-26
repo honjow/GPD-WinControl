@@ -35,7 +35,7 @@ class Plugin:
         try:
             return int(gpd_setting.get_setting("rumble"))
         except Exception as e:
-            logging.error(f"Error getting rumble: {e}")
+            logging.error(f"Error getting rumble: {e}", exc_info=True)
             return 1
 
     async def set_rumble(self, mode: int):
@@ -49,10 +49,10 @@ class Plugin:
         try:
             result = gpd_setting.get_setting(option)
             val = int(result) if result is not None else 0
-            logging.info(f"Getting {option}: {val}")
+            logging.debug(f"Getting {option}: {val}")
             return val
         except Exception as e:
-            logging.error(f"Error getting {option}: {e}")
+            logging.error(f"Error getting {option}: {e}", exc_info=True)
             return 0
 
     async def get_config_str(self, option):
@@ -62,7 +62,7 @@ class Plugin:
             logging.info(f"Getting {option}: {val}")
             return val
         except Exception as e:
-            logging.error(f"Error getting {option}: {e}")
+            logging.error(f"Error getting {option}: {e}", exc_info=True)
             return ""
 
     async def set_config(self, option, value):
@@ -70,7 +70,7 @@ class Plugin:
         try:
             return gpd_setting.set_setting(option, value)
         except Exception as e:
-            logging.error(f"Error setting {option}: {e}")
+            logging.error(f"Error setting {option}: {e}", exc_info=True)
             return False
 
     async def reset_mappings(self):
@@ -88,7 +88,7 @@ class Plugin:
         try:
             return update.get_latest_version()
         except Exception as e:
-            logging.error(f"Error getting latest version: {e}")
+            logging.error(f"Error getting latest version: {e}", exc_info=True)
             return ""
 
     async def get_support_rumble_option(self):
@@ -105,7 +105,7 @@ class Plugin:
             xfirmware, _ = gpd_setting.get_firmware_version()
             return xfirmware
         except Exception as e:
-            logging.error(f"Error getting Xfirmware version: {e}")
+            logging.error(f"Error getting Xfirmware version: {e}", exc_info=True)
             return "UNKNOWN"
 
     async def get_Kfirmware_version(self):
@@ -113,7 +113,7 @@ class Plugin:
             _, kfirmware = gpd_setting.get_firmware_version()
             return kfirmware
         except Exception as e:
-            logging.error(f"Error getting Kfirmware version: {e}")
+            logging.error(f"Error getting Kfirmware version: {e}", exc_info=True)
             return "UNKNOWN"
 
     async def get_rgb(self):
