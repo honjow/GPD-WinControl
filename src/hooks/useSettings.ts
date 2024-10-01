@@ -27,7 +27,7 @@ export class SettingsData {
   public fromDict(dict: { [key: string]: any }) {
     for (let key of Object.keys(dict)) {
       if (this.hasOwnProperty(key)) {
-        this[key] = dict[key];
+        this[key as keyof SettingsData] = dict[key];
       }
     }
   }

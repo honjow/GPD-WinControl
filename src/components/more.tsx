@@ -1,12 +1,12 @@
-import { Field, PanelSection, PanelSectionRow, ToggleField } from "decky-frontend-lib";
-import { VFC } from "react";
+import { Field, PanelSection, PanelSectionRow, ToggleField } from "@decky/ui";
+import { FC } from "react";
 import { Backend } from "../backend";
 import { useMore } from "../hooks";
-import { LocalizationManager, LocalizeStrEnum } from "../i18n";
+import { localizationManager, localizeStrEnum } from "../i18n";
 import { ActionButtonItem } from ".";
 
 
-export const MoreComponent: VFC = () => {
+export const MoreComponent: FC = () => {
     const { currentVersion,
         latestVersion,
         xfirmwareVersion,
@@ -15,10 +15,10 @@ export const MoreComponent: VFC = () => {
         setDisableFirmwareCheck,
     } = useMore();
 
-    let uptButtonText = LocalizationManager.getString(LocalizeStrEnum.REINSTALL_PLUGIN);
+    let uptButtonText = localizationManager.getString(localizeStrEnum.REINSTALL_PLUGIN);
 
     if (currentVersion !== latestVersion && Boolean(latestVersion)) {
-        uptButtonText = `${LocalizationManager.getString(LocalizeStrEnum.UPDATE_PLUGIN)} ${latestVersion}`;
+        uptButtonText = `${localizationManager.getString(localizeStrEnum.UPDATE_PLUGIN)} ${latestVersion}`;
     }
 
     // firmware_check
@@ -38,7 +38,7 @@ export const MoreComponent: VFC = () => {
                     onClick={() => {
                         Backend.resetMappings();
                     }}
-                >{LocalizationManager.getString(LocalizeStrEnum.RESET_MAPPING)}</ActionButtonItem>
+                >{localizationManager.getString(localizeStrEnum.RESET_MAPPING)}</ActionButtonItem>
             </PanelSectionRow>
             <PanelSectionRow>
                 <ActionButtonItem
@@ -49,13 +49,13 @@ export const MoreComponent: VFC = () => {
                 >{uptButtonText}</ActionButtonItem>
             </PanelSectionRow>
             <PanelSectionRow>
-                <Field focusable label={LocalizationManager.getString(LocalizeStrEnum.INSTALLED_VERSION)}>
+                <Field focusable label={localizationManager.getString(localizeStrEnum.INSTALLED_VERSION)}>
                     {currentVersion}
                 </Field>
             </PanelSectionRow>
             {Boolean(latestVersion) && (
                 <PanelSectionRow>
-                    <Field focusable label={LocalizationManager.getString(LocalizeStrEnum.LATEST_VERSION)}>
+                    <Field focusable label={localizationManager.getString(localizeStrEnum.LATEST_VERSION)}>
                         {latestVersion}
                     </Field>
                 </PanelSectionRow>

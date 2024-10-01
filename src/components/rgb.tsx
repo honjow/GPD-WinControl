@@ -3,14 +3,14 @@ import {
   PanelSection,
   PanelSectionRow,
   gamepadSliderClasses,
-} from "decky-frontend-lib";
-import { VFC } from "react";
+} from "@decky/ui";
+import { FC } from "react";
 import { SlowSliderField } from "./SlowSliderField";
 import { useRgb } from "../hooks";
 import { LedMode } from "../backend";
-import { LocalizationManager, LocalizeStrEnum } from "../i18n";
+import { localizationManager, localizeStrEnum } from "../i18n";
 
-export const RGBComponent: VFC = () => {
+export const RGBComponent: FC = () => {
   const {
     hue,
     saturation,
@@ -45,10 +45,10 @@ export const RGBComponent: VFC = () => {
   }
 
   const options = [
-    { mode: LedMode.OFF, label: LocalizationManager.getString(LocalizeStrEnum.RGB_MODE_OFF) },
-    { mode: LedMode.SOLID, label: LocalizationManager.getString(LocalizeStrEnum.RGB_MODE_SOLID) },
-    { mode: LedMode.BREATHE, label: LocalizationManager.getString(LocalizeStrEnum.RGB_MODE_BREATHE) },
-    { mode: LedMode.ROTATE, label: LocalizationManager.getString(LocalizeStrEnum.RGB_MODE_ROTATE) },
+    { mode: LedMode.OFF, label: localizationManager.getString(localizeStrEnum.RGB_MODE_OFF) },
+    { mode: LedMode.SOLID, label: localizationManager.getString(localizeStrEnum.RGB_MODE_SOLID) },
+    { mode: LedMode.BREATHE, label: localizationManager.getString(localizeStrEnum.RGB_MODE_BREATHE) },
+    { mode: LedMode.ROTATE, label: localizationManager.getString(localizeStrEnum.RGB_MODE_ROTATE) },
   ];
 
   const ledModeLabels: NotchLabel[] = options.map((opt, _) => {
@@ -62,7 +62,7 @@ export const RGBComponent: VFC = () => {
   const showSlider = ledMode !== LedMode.OFF && ledMode !== LedMode.ROTATE;
 
   return (
-    <PanelSection title={LocalizationManager.getString(LocalizeStrEnum.RGB_SETTINGS)}>
+    <PanelSection title={localizationManager.getString(localizeStrEnum.RGB_SETTINGS)}>
       <PanelSectionRow>
         <SlowSliderField
           value={ledMode}
@@ -80,7 +80,7 @@ export const RGBComponent: VFC = () => {
         <PanelSectionRow>
           <SlowSliderField
             showValue
-            label={LocalizationManager.getString(LocalizeStrEnum.HUE)}
+            label={localizationManager.getString(localizeStrEnum.HUE)}
             value={hue}
             min={0}
             max={360}
@@ -95,7 +95,7 @@ export const RGBComponent: VFC = () => {
         <PanelSectionRow>
           <SlowSliderField
             showValue
-            label={LocalizationManager.getString(LocalizeStrEnum.SATURATION)}
+            label={localizationManager.getString(localizeStrEnum.SATURATION)}
             value={saturation}
             min={0}
             max={100}
@@ -110,7 +110,7 @@ export const RGBComponent: VFC = () => {
         <PanelSectionRow>
           <SlowSliderField
             showValue
-            label={LocalizationManager.getString(LocalizeStrEnum.BRIGHTNESS)}
+            label={localizationManager.getString(localizeStrEnum.BRIGHTNESS)}
             value={brightness}
             disabled={ledMode === LedMode.BREATHE}
             min={0}

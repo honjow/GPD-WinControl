@@ -1,17 +1,17 @@
-import { NotchLabel, PanelSection, PanelSectionRow } from "decky-frontend-lib";
-import { VFC } from "react";
+import { NotchLabel, PanelSection, PanelSectionRow } from "@decky/ui";
+import { FC } from "react";
 import { RumbleMode } from "../backend";
 import { useRumble } from "../hooks";
 import { SlowSliderField } from ".";
-import { LocalizationManager, LocalizeStrEnum } from "../i18n";
+import { localizationManager, localizeStrEnum } from "../i18n";
 
-export const RumbleComponent: VFC = () => {
+export const RumbleComponent: FC = () => {
   const { mode, updateRumble } = useRumble();
 
   const options = [
-    { mode: RumbleMode.OFF, label: LocalizationManager.getString(LocalizeStrEnum.RUMBLE_OFF) },
-    { mode: RumbleMode.LOW, label: LocalizationManager.getString(LocalizeStrEnum.RUMBLE_LOW) },
-    { mode: RumbleMode.HIGH, label: LocalizationManager.getString(LocalizeStrEnum.RUMBLE_HIGH) },
+    { mode: RumbleMode.OFF, label: localizationManager.getString(localizeStrEnum.RUMBLE_OFF) },
+    { mode: RumbleMode.LOW, label: localizationManager.getString(localizeStrEnum.RUMBLE_LOW) },
+    { mode: RumbleMode.HIGH, label: localizationManager.getString(localizeStrEnum.RUMBLE_HIGH) },
   ];
 
   const MODES: NotchLabel[] = options.map((opt, _) => {
@@ -23,7 +23,7 @@ export const RumbleComponent: VFC = () => {
   });
 
   return (
-    <PanelSection title={LocalizationManager.getString(LocalizeStrEnum.RUMBLE_SETTINGS)}>
+    <PanelSection title={localizationManager.getString(localizeStrEnum.RUMBLE_SETTINGS)}>
       <PanelSectionRow>
         <SlowSliderField
           value={mode}

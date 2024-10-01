@@ -1,12 +1,12 @@
-import { PanelSection, PanelSectionRow } from "decky-frontend-lib";
+import { PanelSection, PanelSectionRow } from "@decky/ui";
 
-import { VFC } from "react";
+import { FC } from "react";
 import { stickOptionId } from "../backend";
 import { useStickOptions } from "../hooks";
 import { SlowSliderField } from ".";
-import { LocalizationManager, LocalizeStrEnum } from "../i18n";
+import { localizationManager, localizeStrEnum } from "../i18n";
 
-export const StickSliderComponent: VFC<{
+export const StickSliderComponent: FC<{
   id: stickOptionId;
   label: string;
 }> = ({ id, label }) => {
@@ -35,16 +35,16 @@ export const StickSliderComponent: VFC<{
   );
 };
 
-export const StickComponent: VFC = () => {
+export const StickComponent: FC = () => {
   const options: { id: stickOptionId; label: string }[] = [
-    { id: "ldead", label: LocalizationManager.getString(LocalizeStrEnum.LEFT_STICK_DEADZONE) },
-    { id: "rdead", label: LocalizationManager.getString(LocalizeStrEnum.RIGHT_STICK_DEADZONE) },
-    { id: "lcent", label: LocalizationManager.getString(LocalizeStrEnum.LEFT_STICK_CENTRING) },
-    { id: "rcent", label: LocalizationManager.getString(LocalizeStrEnum.RIGHT_STICK_CENTRING) },
+    { id: "ldead", label: localizationManager.getString(localizeStrEnum.LEFT_STICK_DEADZONE) },
+    { id: "rdead", label: localizationManager.getString(localizeStrEnum.RIGHT_STICK_DEADZONE) },
+    { id: "lcent", label: localizationManager.getString(localizeStrEnum.LEFT_STICK_CENTRING) },
+    { id: "rcent", label: localizationManager.getString(localizeStrEnum.RIGHT_STICK_CENTRING) },
   ];
 
   return (
-    <PanelSection title={LocalizationManager.getString(LocalizeStrEnum.STICK_SETTINGS)}>
+    <PanelSection title={localizationManager.getString(localizeStrEnum.STICK_SETTINGS)}>
       {options.map((opt, idx) => {
         return <StickSliderComponent key={idx} id={opt.id} label={opt.label} />;
       })}

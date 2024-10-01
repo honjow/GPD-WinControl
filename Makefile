@@ -32,6 +32,10 @@ update-frontend-lib: ## Update decky-frontend-lib
 	@echo "+ $@"
 	@pnpm update decky-frontend-lib --latest
 
+update-ui: ## Update @decky/api and @decky/ui
+	@echo "+ $@"
+	@pnpm update @decky/api @decky/ui --latest
+
 build-front: ## Build frontend
 	@echo "+ $@"
 	@pnpm run build

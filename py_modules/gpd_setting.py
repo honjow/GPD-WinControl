@@ -1,4 +1,4 @@
-import decky_plugin
+import decky
 from wincontrols import hardware
 from config import CONFIG_KEY, logging, DEFAULT_MAPPINGS
 from wincontrols.config import Setting
@@ -7,7 +7,7 @@ from settings import SettingsManager
 
 def disable_firmware_check():
     settings = SettingsManager(
-        name="config", settings_directory=decky_plugin.DECKY_PLUGIN_SETTINGS_DIR
+        name="config", settings_directory=decky.DECKY_PLUGIN_SETTINGS_DIR
     )
     conf = settings.getSetting(CONFIG_KEY)
     if conf is None:

@@ -9,8 +9,8 @@ import {
   PanelSection,
   PanelSectionRow,
   showContextMenu
-} from "decky-frontend-lib";
-import { VFC, useEffect, useState } from "react";
+} from "@decky/ui";
+import { FC, useEffect, useState } from "react";
 import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 import { FiPlusCircle, FiTrash2 } from "react-icons/fi"
 import { keyCode } from "../backend";
@@ -24,7 +24,7 @@ interface BackButtonMappingItemProps {
   enableSetDelay?: boolean;
 }
 
-export const BackButtonMappingItem: VFC<BackButtonMappingItemProps> = ({
+export const BackButtonMappingItem: FC<BackButtonMappingItemProps> = ({
   val,
   delay,
   updateMappingOptions,
@@ -148,7 +148,7 @@ export const BackButtonMappingItem: VFC<BackButtonMappingItemProps> = ({
   // );
 };
 
-export const BackBunntonMappingComponent: VFC = () => {
+export const BackBunntonMappingComponent: FC = () => {
   const [showL4, setShowL4] = useState<boolean>(Settings.showL4);
   const [showR4, setShowR4] = useState<boolean>(Settings.showR4);
 
