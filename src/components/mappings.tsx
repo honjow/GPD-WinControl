@@ -3,15 +3,15 @@ import {
   DropdownItem,
   PanelSection,
   PanelSectionRow,
-} from "decky-frontend-lib";
-import { useEffect, useState, VFC } from "react";
+} from "@decky/ui";
+import { useEffect, useState, FC } from "react";
 import { RiArrowDownSFill, RiArrowUpSFill } from "react-icons/ri";
 import { ButtonId, keyCode } from "../backend";
 import { Settings, useMappings } from "../hooks";
 import { IconMap } from "./icons";
-import { LocalizationManager, LocalizeStrEnum } from "../i18n";
+import { localizationManager, localizeStrEnum } from "../i18n";
 
-export const MappingDropdownItem: VFC<{ id: ButtonId; label: string, hideNone?: boolean }> = ({
+export const MappingDropdownItem: FC<{ id: ButtonId; label: string, hideNone?: boolean }> = ({
   id,
   label,
   hideNone = false,
@@ -67,7 +67,7 @@ export const MappingDropdownItem: VFC<{ id: ButtonId; label: string, hideNone?: 
   );
 };
 
-export const MouseMappingComponent: VFC = () => {
+export const MouseMappingComponent: FC = () => {
   const [showMouseMapping, setShowMouseMapping] = useState(
     Settings.showMouseMapping
   );
@@ -102,7 +102,7 @@ export const MouseMappingComponent: VFC = () => {
   ];
 
   return (
-    <PanelSection title={LocalizationManager.getString(LocalizeStrEnum.MOUSE_MAPPING)}>
+    <PanelSection title={localizationManager.getString(localizeStrEnum.MOUSE_MAPPING)}>
       <PanelSectionRow>
         <ButtonItem
           layout="below"

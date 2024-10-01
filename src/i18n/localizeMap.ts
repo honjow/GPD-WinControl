@@ -8,60 +8,82 @@ import * as thai from "./thai.json";
 import * as bulgarian from "./bulgarian.json";
 import * as italian from "./italian.json";
 import * as french from "./french.json";
-export const localizeMap = {
+
+export interface LanguageProps {
+  label: string;
+  strings: any;
+  credit: string[];
+  locale: string;
+}
+
+export const defaultLanguage = "english";
+export const defaultLocale = "en";
+export const defaultMessages = english;
+
+export const localizeMap: { [key: string]: LanguageProps } = {
   schinese: {
     label: "简体中文",
     strings: schinese,
     credit: ["honjow"],
+    locale: "zh-CN",
   },
   tchinese: {
     label: "繁體中文",
     strings: tchinese,
     credit: [],
+    locale: "zh-TW",
   },
   english: {
     label: "English",
     strings: english,
     credit: [],
+    locale: "en",
   },
   german: {
     label: "Deutsch",
     strings: german,
     credit: [],
+    locale: "de",
   },
   japanese: {
     label: "日本語",
     strings: japanese,
     credit: [],
+    locale: "ja",
   },
   koreana: {
     label: "한국어",
     strings: koreana,
     credit: [],
+    locale: "ko",
   },
   thai: {
     label: "ไทย",
     strings: thai,
     credit: [],
+    locale: "th",
   },
   bulgarian: {
     label: "Български",
     strings: bulgarian,
     credit: [],
+    locale: "bg",
   },
   italian: {
     label: "Italiano",
     strings: italian,
     credit: [],
+    locale: "it",
   },
   french: {
     label: "Français",
     strings: french,
     credit: [],
+    locale: "fr",
   },
 };
 
-export enum LocalizeStrEnum {
+export enum localizeStrEnum {
   RGB_SETTINGS = "RGB_SETTINGS",
   LED_ON = "LED_ON",
   BRIGHTNESS = "BRIGHTNESS",

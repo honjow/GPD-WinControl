@@ -2,7 +2,7 @@ import logging
 
 
 try:
-    LOG_LOCATION = f"/tmp/GPD-WinControl.log"
+    LOG_LOCATION = "/tmp/GPD-WinControl.log"
     logging.basicConfig(
         level=logging.INFO,
         filename=LOG_LOCATION,
