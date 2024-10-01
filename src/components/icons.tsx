@@ -1,0 +1,56 @@
+import { ButtonId } from "../backend";
+import {
+  GPD_HOME,
+  GPD_SELECT,
+  GPD_START,
+  PS5_L1,
+  PS5_L2,
+  PS_DPAD_DOWN,
+  PS_DPAD_LEFT,
+  PS_DPAD_RIGHT,
+  PS_DPAD_UP,
+  SHARED_BUTTONS_E,
+  SHARED_BUTTONS_N,
+  SHARED_BUTTONS_S,
+  SHARED_BUTTONS_W,
+  SHARED_L3,
+  SHARED_LSTICK_DOWN,
+  SHARED_LSTICK_LEFT,
+  SHARED_LSTICK_RIGHT,
+  SHARED_LSTICK_UP,
+  SHARED_RSTICK_DOWN,
+  SHARED_RSTICK_UP,
+} from "../svgs";
+
+
+interface IconMapType {
+  [id: ButtonId]: () => JSX.Element;
+}
+
+export const IconMap: IconMapType = {
+  l1: PS5_L1,
+  l2: PS5_L2,
+  l3: SHARED_L3,
+  r1: PS5_L1,
+  r2: PS5_L2,
+  r3: SHARED_L3,
+  lu: SHARED_LSTICK_UP,
+  ld: SHARED_LSTICK_DOWN,
+  ll: SHARED_LSTICK_LEFT,
+  lr: SHARED_LSTICK_RIGHT,
+  du: PS_DPAD_UP,
+  dd: PS_DPAD_DOWN,
+  dl: PS_DPAD_LEFT,
+  dr: PS_DPAD_RIGHT,
+  ru: SHARED_RSTICK_UP,
+  rd: SHARED_RSTICK_DOWN,
+  rl: SHARED_LSTICK_LEFT,
+  rr: SHARED_LSTICK_RIGHT,
+  a: SHARED_BUTTONS_S,
+  b: SHARED_BUTTONS_E,
+  x: SHARED_BUTTONS_W,
+  y: SHARED_BUTTONS_N,
+  menu: GPD_HOME,
+  select: GPD_SELECT,
+  start: GPD_START,
+};

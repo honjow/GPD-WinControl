@@ -1,0 +1,10 @@
+{
+  "name": "GPD-WinControl",
+  "author": "honjow",
+  "flags": ["root"],
+  "publish": {
+    "tags": ["root"],
+    "description": "GPD WinControl Decky Plugin.",
+    "image": "https://opengraph.githubassets.com/1/SteamDeckHomebrew/PluginLoader"
+  }
+}
