@@ -88,9 +88,9 @@ r44=NONE
 l4delay1=0
 l4delay2=0
 l4delay3=0
-l4delay4=300
+l4delay4=20
 r4delay1=0
 r4delay2=0
 r4delay3=0
-r4delay4=300
+r4delay4=20
 """
