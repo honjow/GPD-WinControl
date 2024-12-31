@@ -215,21 +215,17 @@ export class Backend {
 
   // get_settings
   public static async getSettings(): Promise<SettingsData> {
-    // const res = await this.serverAPI!.callPluginMethod("get_settings", {});
-    const res = await call("get_settings") as { result: Record<string, unknown> };
+    const res = await call("get_settings") as Record<string, unknown>;
     if (!res) {
       return new SettingsData();
     }
     let data = new SettingsData();
-    data.fromDict(res.result as Record<string, unknown>);
+    data.fromDict(res as Record<string, unknown>);
     return data;
   }
 
   // set_settings
   public static async setSettings(settings: SettingsData) {
-    // return await this.serverAPI!.callPluginMethod("set_settings", {
-    //   settings: settings,
-    // });
     return await call("set_settings", settings);
   }
 }
